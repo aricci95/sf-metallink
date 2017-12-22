@@ -27,7 +27,6 @@ fos_user:
         email_update_confirmation:
             enabled: true
 
-
 services:
     # default configuration for services in *this* file
     _defaults:
