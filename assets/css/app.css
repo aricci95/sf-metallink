@@ -1,0 +1,524 @@
+@CHARSET "utf-8";
+
+@font-face {
+    font-family: Metallink;
+    src: url(/MLink/libraries/fonts/menu.ttf), url(/MLink/libraries/fonts/menu.eot);
+}
+
+img {
+    border: none;
+}
+
+a {
+    cursor: url(http://cdn.acfrg.com/o/emp.fr/hand3.cur), url(http://cdn.acfrg.com/o/emp.fr/hand3.png), auto;
+}
+
+textarea {
+    border:1px grey solid;
+    background-color:#D8D8D8;
+}
+
+body {
+    font-size:16px;
+    color:rgb(84, 65, 70);
+    font-family: Calibri;
+    background-repeat:no-repeat;
+    background-image:url('//images/structure/emp_background.jpg');
+    background-attachment: fixed;
+    background-position: top center;
+    background-color:rgb(26, 26, 26);
+    margin: 0; /* pour éviter les marges */
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.modal {
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    background-color:rgb(228, 229, 231);
+    margin:0 auto;
+    height:120%;
+    width: 800px;
+}
+
+form {
+    margin: 0;
+}
+
+.noresults {
+    margin: 5%;
+}
+
+.lienProfil {
+    text-align: left;
+    font-color:white;
+    font-size: 17px;
+}
+
+.blackLink:link {color: #808080;}
+.blackLink:hover {color: black;}
+.blackLink:visited {color: #808080;}
+.blackLink:visited:hover {color: black;}
+.blackLink:active {color: #808080;}
+
+.userMenu:link {color: #E8E8E8;}
+.userMenu:hover {color: white;}
+.userMenu:visited {color: #E8E8E8;}
+.userMenu:visited:hover {color: white;}
+.userMenu:active {color: #E8E8E8;}
+
+.lienProfil:link {color: #E8E8E8;}
+.lienProfil:hover {color: white;}
+.lienProfil:visited {color: #E8E8E8;}
+.lienProfil:visited:hover {color: white;}
+.lienProfil:active {color: #E8E8E8;}
+
+.menuLien:link {color: #E8E8E8;}
+.menuLien:hover {color: white;}
+.menuLien:visited {color: #E8E8E8;}
+.menuLien:visited:hover {color: white;}
+.menuLien:active {color: #E8E8E8;}
+
+a:visited {color: #808080;text-decoration: none ;}
+a:hover {color: white;text-decoration: none ;}
+a:visited:hover {color: white;text-decoration: none ;}
+a:link {color: #808080;text-decoration: none ;}
+
+.thMessageBoxMenu {
+    font-size:20px;
+    text-align:center;
+}
+
+.trNewMessage {
+    text-align:center;
+    background-color:#242424;
+    color:#808080;
+}
+
+.tableProfil {
+    font-weight: bold;
+    text-align:left;
+}
+
+.annonce {
+    display: inline-block;
+    width:800px;
+    height:100px;
+    text-align: left;
+}
+
+.form {
+    padding-top: 19px;
+    font-size: 16px;
+    height: 60px;
+    background-color: rgb(29, 39, 35);
+    color: rgb(162, 204, 57);
+}
+
+.heading {
+    white-space:nowrap;
+    overflow: hidden;
+    font-size: 18px;
+    padding: 20px;
+    padding-top: 13px;
+    height: 16px;
+    background-color: rgb(29, 39, 35);
+    color: rgb(162, 204, 57);
+}
+
+.title {
+    white-space:nowrap;
+    overflow: hidden;
+    font-size: 18px;
+    padding: 20px;
+    padding-top: 13px;
+    height: 16px;
+    width:765px;
+    background-color: rgb(29, 39, 35);
+    color: rgb(162, 204, 57);
+}
+
+.noMargin {
+    margin-left: -25px;
+}
+
+.shadow {
+    width:800px;
+    height: 18px;
+    -webkit-box-shadow: inset 2px 22px 20px -20px rgb(26, 26, 26);
+    -moz-box-shadow: inset 2px 22px 20px -20px rgb(26, 26, 26);
+    box-shadow: inset 2px 22px 20px -20px rgb(26, 26, 26);
+    margin-bottom:5px;
+}
+
+.topShadow {
+    padding-top: 20px;
+    -webkit-box-shadow: inset 2px 23px 20px -20px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 2px 23px 20px -20px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 2px 23px 20px -20px rgba(0, 0, 0, 0.5);
+}
+
+.allShadows {
+    -webkit-box-shadow: inset 0px 1px 29px 6px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 0px 1px 29px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0px 1px 29px 6px rgba(0, 0, 0, 0.5);
+}
+
+.grey {
+    background-color: rgb(228, 229, 231);
+}
+
+.minHeight {
+    min-height: 60%;
+}
+
+.userMenu {
+    font-size:17px;
+    color: white;
+    background-color:rgb(29, 39, 35);
+    height:25px;
+    padding:20px;
+}
+
+.footer {
+    margin-top:31px;
+    font-size: 13px;
+    color: #CECECE;
+    background-color: rgb(29, 39, 35);
+    height: 33px;
+    padding: 12px;
+    bottom: 0;
+}
+
+.menu {
+    color: #CECECE;
+    background-color:rgb(38, 47, 42);
+    margin-left: -17px;
+    padding:20px;
+    font-family: Metallink;
+    text-align: center;
+    font-size: 28px;
+    height: 26px;
+    width:794px;
+}
+
+.menuLien {
+    text-align: center;
+    margin: 10px;
+}
+
+.menuIcone {
+    font-family: Metallink;
+    text-align: right;
+}
+
+h1 {
+    text-align:center;
+    color:grey;
+}
+
+h2 {
+    text-align:center;
+    color:grey;
+    font-size: 15px;
+}
+
+hr {
+    background:#E6E6E6;
+    border-top:1px grey dotted;
+    border-bottom: black;
+}
+
+h3 {
+    text-align:center;
+    color:white;
+}
+
+h4 {
+    text-align:center;
+    color:white;
+}
+
+.smallPortrait {
+    width: 100px;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: top left;
+    margin-right:9px;
+    background-size: cover;
+}
+
+
+.profilePortrait {
+    background-size: cover;
+    min-width:294px;
+    min-height:294px;
+    background-repeat: no-repeat;
+    background-position: top center;
+    margin-right:9px;
+}
+
+.editPhoto {
+    margin:0 auto;
+    position:relative;
+    z-index: 5;
+}
+
+.editPhotoHover {
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    position:absolute;
+    float:left;
+    z-index:10;
+}
+
+.site {
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    background-color:rgb(247, 247, 248);
+    width:800px;
+    min-height: 500px;
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.imgSousPortait {
+    border:1px #5E5E5E outset;
+    width:93px;
+}
+
+.newPhoto:hover {
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.editPhoto:hover {
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.divElementSmall {
+    float:left;
+    position:relative;
+    overflow: hidden;
+    width:100px;
+    height:120px;
+    background-image:url('//images/structure/backgrounduser.jpg');
+    border:1px grey solid;
+    margin:5px;
+    text-align:center;
+}
+
+.divElementSmall .pictoStatus {
+    position:absolute;
+    right:5;
+    bottom:25;
+}
+
+.userFont {
+    padding-top:5px;
+    font-size:15px;
+}
+
+.divElement .pictoStatus {
+    position:absolute;
+    left:80;
+    bottom:2;
+}
+
+.divElement {
+    float:left;
+    position:relative;
+    overflow: hidden;
+    width: 262px;
+    height:100px;
+    background-image:url('//images/structure/backgrounduser.jpg');
+    background-position: right;
+    border:1px grey solid;
+    margin:1px;
+    text-align:left;
+}
+
+.divPhoto {
+    float:left;
+    width:100px;
+    height:100px;
+    background-size: cover;
+}
+
+.divInfo {
+    float:left;
+    width: 138px;
+    height: 92px;
+    margin:5px;
+}
+
+.divElement:hover .controlPanel {
+    opacity: 1;
+}
+
+.divElement .controlPanel {
+    opacity:0;
+}
+
+.divElement:hover .actionPanel {
+    opacity: 1;
+}
+
+.editPhoto:hover .removePhoto {
+    opacity: 0.9;
+}
+
+.editPhoto:hover .definePhoto {
+    opacity: 0.9;
+}
+
+.editPhoto .definePhoto {
+    width:294px;
+    height:294px;
+    background:url('//images/div/defineprofile.png') no-repeat;
+    opacity:0;
+}
+
+.editPhoto .removePhoto {
+    width:50px;
+    height:50px;
+    background:url('//images/boutons/remove.png') no-repeat;
+    opacity:0;
+}
+
+.profilePhoto {
+    width:294px;
+    height:294px;
+    background:url('//images/div/profilephoto.png') no-repeat;
+}
+
+.controlPanel {
+    width:100px;
+    height:100px;
+}
+
+.smallPortrait {
+    width:100px;
+    height:100px;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.userPseudo {
+    margin-top:10px;
+}
+
+.errorMessage {
+    color:white;
+    border:1px grey groove;
+    background:red url('//images/icone/alert2.png') no-repeat 10px center;
+    height:50px;
+    padding-top:25px;
+    text-align:center;
+    margin:15px;
+}
+
+.tasteDatas li {
+    text-align:center;
+}
+
+li {
+    margin-left:-40px;
+    list-style-type:none;
+}
+
+.tasteDatas input {
+    width: 400px;
+}
+
+.maxWidth {
+    width: 800px;
+}
+
+div.autocomplete {
+    font-size: 12px;
+    position:absolute;
+    display:none;
+    background-color:white;
+    border:1px black solid;
+    min-width: 172px;
+}
+
+.divElement  a:hover{
+    color:black;
+}
+
+div.debug {
+    width:100%;
+    position:absolute;
+    border:1px white solid;
+    background-color:white;
+}
+
+.facebookButton {
+    background: linear-gradient(#4c69ba, #3b55a0);
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-shadow: 0 -1px 0 #354c8c;
+    white-space: nowrap;
+}
+
+#submit_button {
+    color: white;
+    background-color: black;
+    font-weight: bold;
+    border: 1px groove;
+    width: 100px;
+    height: 20px;
+}
+
+#submit_button:hover{
+    background-color: rgb(46, 41, 57);
+}
+
+.divModule {
+    margin:10px;
+}
+
+.divModuleProfil {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.vesteAPatchs {
+    float:left;
+    padding: 46px;
+    padding-top: 72px;
+    font-size: 21px;
+    text-align: center;
+    max-height: 280px;
+    overflow: hidden;
+}
+
+.vesteAPatchs span {
+    text-align: center;
+    padding: 2px;
+    border:1px grey;
+    background-color: black;
+    background-image:url('//images/patch.jpg');
+    border-style:dotted;
+    display: inline-block;
+
+
+    margin:2px;
+    padding:3px;
+    color:#E6E6E6;
+}
