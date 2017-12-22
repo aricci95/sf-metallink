@@ -16,6 +16,7 @@
 !var/sessions/.gitkeep
 
 # Parameters
+.env
 /app/config/parameters.yml
 /app/config/parameters.ini
 
