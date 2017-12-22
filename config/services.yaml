@@ -8,12 +8,15 @@ parameters:
 
     mailer_user: aricci95@gmail.com
 
+    profiler:
+        collect: true
+
 fos_user:
     service:
         mailer: fos_user.mailer.twig_swift
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: App\Entity\User
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"

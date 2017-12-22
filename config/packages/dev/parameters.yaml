@@ -4,3 +4,5 @@ parameters:
     db.backend.password: ''
     db.backend.dbname: sf-symfony
     db.backend.user: root
+
+  
