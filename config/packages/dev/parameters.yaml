@@ -1,0 +1,6 @@
+parameters:
+    db.backend.hostname: 127.0.0.1
+    db.backend.port: 3306
+    db.backend.password: ''
+    db.backend.dbname: sf-symfony
+    db.backend.user: root
