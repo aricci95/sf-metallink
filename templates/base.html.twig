@@ -11,22 +11,31 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
         <div class="userMenu">
             <div style="width:815px;margin-right:auto;margin-left:auto;">
-                {% if app.user %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                    <div style="float:left;width:90px;text-align: left;">
-                        <a class="lienProfil" href="profile/<?php echo $this->context->get('user_id'); ?>">Mon profil</a>
-                        <a href="auth/disconnect" class="greyLink" style="text-align: left;">Deconnexion</a>
+                        <a class="lienProfil" href="{{ path('profile_edit') }}">Mon profil</a>
+                        <a href="{{ path('fos_user_security_logout') }}" class="greyLink" style="text-align: left;">Deconnexion</a>
                     </div>
                     <span style="float: right;font-size: 25px;">
                         <a class="menuIcone" href="mailbox"><img src="/images/icone/message.png" />
                             <b>0</b>
                         </a>
-                        <a class="menuIcone" href="link/<?php echo LINK_STATUS_SENT; ?>">
+                        <a class="menuIcone" href="link/sent">
                             <img src="/images/icone/link.png" />
                             <b>0</b>
                         </a>
-                        <a class="menuIcone" href="link/<?php echo LINK_STATUS_ACCEPTED; ?>">
+                        <a class="menuIcone" href="link/accepted">
                             <img src="/images/icone/linked.png" />
                             <b>0</b>
                         </a>
@@ -34,14 +43,14 @@
                             <img src="/images/icone/views.png" />
                             <b>0</b>
                         </a>
-                        <a class="menuIcone" href="link/<?php echo LINK_STATUS_BLACKLIST; ?>">
+                        <a class="menuIcone" href="link/blacklist">
                             <img src="/images/icone/blacklist.png" />
                             <b>0</b>
                         </a>
                     </span>
                  {% else %}
                     <div class="greyLink" style="font-family: Metallink;font-size:24px;color: white;">
-                        <form action="{{ path("fos_user_security_check") }}" method="post">
+                        <form action="{{ path('fos_user_security_check') }}" method="post">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
                             Login : <input style="padding-top:-10px;margin-left:5px;margin-right:5px;" name="_username" size="4" />
                             Password : <input style="margin-left:5px;" name="_password" type="password" size="4" />
@@ -68,6 +77,7 @@
                 <a class="menuLien" href="http://www.emp-online.fr/musique-cinema/les-essentiels/offres-speciales/?wt_mc=pt.pp.musiksale.283#Q1179C.G3Lkj" target="_blank">Shop</a>
             </div>
             <div style="min-height: 550px;">
+                {% block fos_user_content %}{% endblock fos_user_content %}
                 {% block body %}{% endblock %}
             </div>
             <div class="footer">
