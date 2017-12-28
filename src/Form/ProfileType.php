@@ -5,6 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\User;
 
 class ProfileType extends AbstractType
@@ -17,7 +18,10 @@ class ProfileType extends AbstractType
                     'Homme' => User::GENDER_MALE,
                     'Femme' => User::GENDER_FEMALE,
                 ]
-            ]);
+            ])
+            ->add('birthdate', DateType::class)
+            ->add('isTattooed')
+            ->add('isPierced');
     }
 
     public function getParent()

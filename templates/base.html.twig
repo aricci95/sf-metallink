@@ -11,15 +11,6 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
-        {% if app.request.hasPreviousSession %}
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
         <div class="userMenu">
             <div style="width:815px;margin-right:auto;margin-left:auto;">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -65,7 +56,7 @@
             </div>
         </div>
         <div style="text-align: center;margin:20px;">
-            <a href="user">
+            <a href="{{ path('home') }}">
                 <img src="/images/structure/newheader.png" />
             </a>
         </div>
@@ -77,6 +68,15 @@
                 <a class="menuLien" href="http://www.emp-online.fr/musique-cinema/les-essentiels/offres-speciales/?wt_mc=pt.pp.musiksale.283#Q1179C.G3Lkj" target="_blank">Shop</a>
             </div>
             <div style="min-height: 550px;">
+                {% if app.request.hasPreviousSession %}
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="flashbag flash-{{ type }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
                 {% block fos_user_content %}{% endblock fos_user_content %}
                 {% block body %}{% endblock %}
             </div>

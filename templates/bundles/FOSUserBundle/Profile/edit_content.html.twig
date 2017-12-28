@@ -1,11 +1,44 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="title topShadow">GENERAL</div>
-        <div class="shadow"></div>
-        <table style="text-align: left;margin:10px;width:800px;"></table>
-    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-        {{ form_widget(form) }}
-        <div>
-            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-        </div>
-    {{ form_end(form) }}
+<div class="shadow"></div>
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    <table style="text-align: left;margin:10px;width:800px;">
+        <tr>
+            <th>{{ form_label(form.email) }}</th>
+            <td>{{ form_widget(form.email) }}{{ form_errors(form.email) }}
+                <span style="float:right;margin-right:20px;">
+                    <img src="/images/icone/delete.png"/>
+                    <a href="profile/delete">Supprimer mon compte</a>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.username) }}</th>
+            <td>{{ form_widget(form.username) }}{{ form_errors(form.username) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.current_password) }}</th>
+            <td>{{ form_widget(form.current_password) }}{{ form_errors(form.current_password) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.gender) }}</th>
+            <td>{{ form_widget(form.gender) }}{{ form_errors(form.gender) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.birthdate) }}</th>
+            <td>{{ form_widget(form.birthdate) }}{{ form_errors(form.birthdate) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.isTattooed) }}</th>
+            <td>{{ form_widget(form.isTattooed) }}{{ form_errors(form.isTattooed) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.isPierced) }}</th>
+            <td>{{ form_widget(form.isPierced) }}{{ form_errors(form.isPierced) }}</td>
+        </tr>
+    </table>
+    <div>
+        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}

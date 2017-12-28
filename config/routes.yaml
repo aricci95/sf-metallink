@@ -1,10 +1,17 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-
 controllers:
     resource: '../src/Controller/'
     type:     annotation
+
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+profil_edited:
+    path: /profile/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: fos_user_profile_edit
+        permanent: true
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
