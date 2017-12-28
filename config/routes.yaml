@@ -2,9 +2,9 @@ controllers:
     resource: '../src/Controller/'
     type:     annotation
 
-home:
+user_list:
     path: /
-    controller: App\Controller\HomeController::index
+    controller: App\Controller\UserController::index
 
 profil_edited:
     path: /profile/
