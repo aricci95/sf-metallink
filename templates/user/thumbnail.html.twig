@@ -1,0 +1,10 @@
+<a href="{{ path('user_profile', {'userId': user.id }) }}" >
+    <div class="divElementSmall">
+        <div class="divPhoto" style="background:url(/photos/small/);background-position: top center;">
+            <img class="pictoStatus" src="/images/icone/); ?>" />
+        </div>
+        <span class="userFont" style="color:{% if user.gender == 1 %}#3333CC{% else %}#CC0000{% endif %}">
+            {{ user.username }}
+        </span>
+    </div>
+</a>

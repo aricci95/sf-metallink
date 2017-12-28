@@ -14,7 +14,7 @@ class UserSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('login', null, ['mapped' => false])
+            ->add('username', null, ['mapped' => false])
             ->add('age', IntegerType::class, ['mapped' => false])
             ->add('gender', ChoiceType::class, [
                 'mapped' => false,
@@ -23,6 +23,6 @@ class UserSearchType extends AbstractType
                     'Femme' => User::GENDER_FEMALE,
                 ]
             ])
-            ->add('save', SubmitType::class);
+            ->add('distance', IntegerType::class, ['mapped' => false]);
     }
 }
