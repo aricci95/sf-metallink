@@ -28,6 +28,8 @@ fos_user:
     profile:
         email_update_confirmation:
             enabled: true
+        form:
+            type: App\Form\ProfileType
 
 services:
     # default configuration for services in *this* file

@@ -1,6 +1,4 @@
 <?php
-// src/AppBundle/Form/RegistrationType.php
-
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -9,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use App\Entity\User;
 
-class RegistrationType extends AbstractType
+class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,21 +17,16 @@ class RegistrationType extends AbstractType
                     'Homme' => User::GENDER_MALE,
                     'Femme' => User::GENDER_FEMALE,
                 ]
-            ])
-            ->add('agreements', CheckboxType::class, [
-                'mapped' => false,
-                'label' => "J'ai lu et j'accepte les mentions légales du site MetalLinK.fr",
-                'required' => true,
             ]);
     }
 
     public function getParent()
     {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+        return 'FOS\UserBundle\Form\Type\ProfileFormType';
     }
 
     public function getBlockPrefix()
     {
-        return 'app_user_registration';
+        return 'app_user_profile';
     }
 }
