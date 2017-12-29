@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script src="{{ asset('build/js/user_search.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     {{ form_start(form, {'action': '#', 'attr': {'id' : 'search_form', 'class': 'fos_user_profile_edit' } }) }}
         <div class="form allShadows" id="search_form_table" align="center">

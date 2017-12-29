@@ -1,0 +1,17 @@
+<div class="divElement">
+    <a href="{{ path('user_show', {'id' : user.id}) }}" >
+    <div class="divPhoto" style="background:url('{{ user.pictureUrl }}');background-position: top center;">
+        <img class="pictoStatus" src="/images/icone/{% if user.status %}online.gif{% else %}offline.png{% endif %}" />
+    </div>
+    <div class="divInfo">
+        <span class="userFont" style="color:{% if user.gender == 1 %}#3333CC{% else %}#CC0000{% endif %}" >
+            {{ user.username }}
+        </span>
+        <br/>
+        {{ user.age }} ans
+        <div class="divLink" style="position:absolute;bottom:3;right:5;">
+            {% include 'link/panel.html.twig' with {'link' : app.user.link(user) } %}
+        </div>
+    </div>
+    </a>
+</div>

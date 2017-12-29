@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -102,9 +103,28 @@ class User extends BaseUser
     private $profilePictureName;
 
     /**
+     * @var Link
+     *
+     *  @ORM\OneToMany(targetEntity="Link", mappedBy="user")
+     */
+    private $linksSent;
+
+    /**
+     * @var Link
+     *
+     * @ORM\OneToMany(targetEntity="Link", mappedBy="target")
+     */
+    private $linksReceived;
+
+    /**
      * @var int
      */
     private $status = self::STATUS_OFFLINE;
+
+    public function __construct()
+    {
+        $this->linksSent = new ArrayCollection();
+    }
 
     public function getPictureUrl($type = 'small')
     {
@@ -416,5 +436,57 @@ class User extends BaseUser
         $this->lastConnexionDate = $lastConnexionDate;
 
         return $this;
+    }
+
+    /**
+     * Gets the value of linksSent.
+     *
+     * @return Link
+     */
+    public function getLinksSent()
+    {
+        return $this->linksSent;
+    }
+
+    /**
+     * @param Link $link
+     */
+    public function addLinkSent(Link $link)
+    {
+        if (!$this->linksSent->contains($link)) {
+            $link->setUser($this);
+            $this->linksSent->add($link);
+        }
+    }
+
+    /**
+     * Gets the value of linksReceived.
+     *
+     * @return Link
+     */
+    public function getLinksReceived()
+    {
+        return $this->linksReceived;
+    }
+
+    public function getLink(User $target)
+    {
+        foreach ($this->linksSent as $link) {
+            if ($link->getTarget()->getId() == $target->getId()) {
+                return $link;
+            }
+        }
+
+        foreach ($target->linksSent as $link) {
+            if ($link->getTarget()->getId() == $this->id) {
+                return $link;
+            }
+        }
+
+        $link = new Link();
+
+        return $link
+            ->setUser($this)
+            ->setTarget($target);
     }
 }

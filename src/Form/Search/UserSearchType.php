@@ -18,6 +18,7 @@ class UserSearchType extends AbstractType
             ->add('age', IntegerType::class, ['mapped' => false])
             ->add('gender', ChoiceType::class, [
                 'mapped' => false,
+                'placeholder' => 'sexe',
                 'choices' => [
                     'Homme' => User::GENDER_MALE,
                     'Femme' => User::GENDER_FEMALE,
