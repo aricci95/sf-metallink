@@ -34,27 +34,27 @@
             <div style="padding-left:10px;padding-right:10px;">
                 <div style="color:rgb(35, 31, 32);font-size: 35px;letter-spacing:-2px;font-weight: bold;width:100%;">
                     {{ user.username|capitalize }} {{ user.status }}
-                    <?php echo strtoupper($this->user['user_login']); ?> <?php $this->_helper->showStatut($this->user['user_last_connexion'], true); ?>
-                    <?php if ($this->context->get('user_id') == $this->user['user_id']) : ?>
+                    {% if app.user == user %}
                         <span style="float:right;">
                             <a href="profile/edit" title="Editer"><img src="/images/icone/edit.png" /></a>
                         </span>
-                    <?php endif; ?>
+                    {% endif %}
                 </div>
                 <br/>
-                <?php if (isset($this->user['age']) && $this->user['age'] < 2000) : ?>
-                    <b><?php echo $this->user['age'] . ' ans'; ?></b><?php if (!empty($this->user['ville_nom_reel'])) : echo ', ' . $this->user['ville_nom_reel'] . ' (' . $this->user['ville_code_postal'] . ')'; endif; ?>
-                    <br/>
-                <?php endif; ?>
-                Dernière connexion <?php echo Tools::timeConvert($this->user['user_last_connexion']); ?>
+                {% if user.age %}
+                    <b>{{ user.age }} ans</b>
+                {% endif %}
+                <br/> 
+                Dernière connexion {{ user.lastConnexionDate }}
                 <br/>
                 <br/>
                 <table class="tableProfil" width="250">
-                    <?php if (!empty($this->user['user_profession'])) : ?>
+                    {% if user.job %}
                         <tr>
                             <th>Profession</th>
-                            <td><?php echo ucfirst($this->user['user_profession']); ?></td>
+                            <td>{{ user.job }}</td>
                         </tr>
+                    {% endif %}
                     <?php endif; ?>
                     <?php if (!empty($this->user['look_libel'])) : ?>
                         <tr>

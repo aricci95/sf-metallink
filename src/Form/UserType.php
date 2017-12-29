@@ -5,10 +5,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use App\Entity\User;
 
-class ProfileType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,8 @@ class ProfileType extends AbstractType
                     'Femme' => User::GENDER_FEMALE,
                 ],
             ])
-            ->add('birthdate', DateType::class)
+            ->add('birthdate', BirthdayType::class)
+            ->add('job')
             ->add('isTattooed')
             ->add('isPierced');
     }

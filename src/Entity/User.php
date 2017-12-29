@@ -39,6 +39,13 @@ class User extends BaseUser
     private $birthdate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_connexion_date", type="datetime", nullable=true)
+     */
+    private $lastConnexionDate;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="job", type="string", length=255, nullable=true)
@@ -112,6 +119,15 @@ class User extends BaseUser
     public function isBlacklisted()
     {
         return false;
+    }
+
+    public function getAge()
+    {
+        if (!$this->birthdate) {
+            return null;
+        }
+
+        return floor((time() - $this->birthdate->getTimestamp()) / 31556926);
     }
 
     /**
@@ -374,6 +390,30 @@ class User extends BaseUser
     public function setProfilePictureName($profilePictureName)
     {
         $this->profilePictureName = $profilePictureName;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of lastConnexionDate.
+     *
+     * @return \DateTime
+     */
+    public function getLastConnexionDate()
+    {
+        return $this->lastConnexionDate;
+    }
+
+    /**
+     * Sets the value of lastConnexionDate.
+     *
+     * @param \DateTime $lastConnexionDate the last connexion date
+     *
+     * @return self
+     */
+    public function setLastConnexionDate(\DateTime $lastConnexionDate)
+    {
+        $this->lastConnexionDate = $lastConnexionDate;
 
         return $this;
     }

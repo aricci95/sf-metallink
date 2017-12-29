@@ -1,6 +1,6 @@
-<a href="{{ path('user_profile', {'userId': user.id }) }}" >
+<a href="{{ path('user_show', {'id': user.id }) }}" >
     <div class="divElementSmall">
-        <div class="divPhoto" style="background:url(/photos/small/{{ user.profilePictureUrl }});background-position: top center;">
+        <div class="divPhoto" style="background:url(/photos/small/{{ user.pictureUrl }});background-position: top center;">
             <img class="pictoStatus" src="/images/icone/); ?>" />
         </div>
         <span class="userFont" style="color:{% if user.gender == 1 %}#3333CC{% else %}#CC0000{% endif %}">

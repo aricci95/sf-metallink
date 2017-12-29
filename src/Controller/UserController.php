@@ -22,9 +22,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="user_profile")
+     * @Route("/user/show/{id}", name="user_show")
      */
-    public function profile(User $user)
+    public function show(User $user)
     {
         return $this->render('user/profile.html.twig', [
             'user' => $user,
