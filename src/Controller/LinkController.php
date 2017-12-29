@@ -33,4 +33,21 @@ class LinkController extends AbstractController
             'link' => $link,
         ]);
     }
+
+    /**
+     * @Route("/link/validate/{link}", name="link_validate")
+     */
+    public function validate(Link $link)
+    {
+        $link->setStatus(Link::STATUS_VALIDATED);
+
+        $linkRepository = $this->getDoctrine()->getRepository(Link::class);
+
+        $this->getDoctrine()->getManager()->persist($link);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('link/panel.html.twig', [
+            'link' => $link,
+        ]);
+    }
 }
