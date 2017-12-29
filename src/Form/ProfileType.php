@@ -17,7 +17,7 @@ class ProfileType extends AbstractType
                 'choices' => [
                     'Homme' => User::GENDER_MALE,
                     'Femme' => User::GENDER_FEMALE,
-                ]
+                ],
             ])
             ->add('birthdate', DateType::class)
             ->add('isTattooed')

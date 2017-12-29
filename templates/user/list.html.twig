@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form, { 'action': '#', 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    {{ form_start(form, {'action': '#', 'attr': {'id' : 'search_form', 'class': 'fos_user_profile_edit' } }) }}
         <div class="form allShadows" id="search_form_table" align="center">
             <span id="search_criterias">
                 {{ form_label(form.gender) }} {{ form_widget(form.gender) }}
@@ -13,5 +13,5 @@
         </div>
     {{ form_end(form) }}
     <div align="center" class="results"></div>
-    <img class="loading" src="images/js/loading.gif" style="display:none;" data-show="false" data-end="false" data-offset="0" data-href="" />
+    <img class="loading" src="/images/loading.gif" style="display:none;" data-show="false" data-end="false" data-offset="0" data-href="" />
 {% endblock %}

@@ -22,12 +22,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/profile/{userId}", name="user_profile")
+     * @Route("/user/{id}", name="user_profile")
      */
-    public function profile($userId)
+    public function profile(User $user)
     {
-        return $this->render('user/list.html.twig', [
-            'form' => $this->createForm(UserSearchType::class, new User())->createView()
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
         ]);
     }
 

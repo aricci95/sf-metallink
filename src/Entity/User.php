@@ -14,6 +14,9 @@ class User extends BaseUser
     const GENDER_MALE   = 1;
     const GENDER_FEMALE = 2;
 
+    const STATUS_ONLINE  = 1;
+    const STATUS_OFFLINE = 0;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -83,6 +86,33 @@ class User extends BaseUser
      * @ORM\Column(name="is_pierced", type="boolean", nullable=true)
      */
     private $isPierced;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profile_picture_name", type="string", length=255, nullable=true)
+     */
+    private $profilePictureName;
+
+    /**
+     * @var int
+     */
+    private $status = self::STATUS_OFFLINE;
+
+    public function getPictureUrl($type = 'small')
+    {
+        return '/photos/' . $type . '/' . $this->profilePictureName;
+    }
+
+    public function isLinked()
+    {
+        return false;
+    }
+
+    public function isBlacklisted()
+    {
+        return false;
+    }
 
     /**
      * Gets the value of gender.
@@ -296,6 +326,54 @@ class User extends BaseUser
     public function setIsPierced($isPierced)
     {
         $this->isPierced = $isPierced;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of status.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Sets the value of status.
+     *
+     * @param int $status the status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of profilePictureName.
+     *
+     * @return string
+     */
+    public function getProfilePictureName()
+    {
+        return $this->profilePictureName;
+    }
+
+    /**
+     * Sets the value of profilePictureName.
+     *
+     * @param string $profilePictureName the profile picture name
+     *
+     * @return self
+     */
+    public function setProfilePictureName($profilePictureName)
+    {
+        $this->profilePictureName = $profilePictureName;
 
         return $this;
     }
