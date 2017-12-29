@@ -115,6 +115,20 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Link", mappedBy="target")
      */
     private $linksReceived;
+    
+    /**
+     * @var Link
+     *
+     *  @ORM\OneToMany(targetEntity="Message", mappedBy="user")
+     */
+    private $messagesSent;
+    
+    /**
+     * @var Link
+     *
+     *  @ORM\OneToMany(targetEntity="Message", mappedBy="target")
+     */
+    private $messagesReceived;
 
     /**
      * @var int

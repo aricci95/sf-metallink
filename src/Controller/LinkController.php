@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\Link;
-use App\Service\LinkService;
 
 class LinkController extends AbstractController
 {
@@ -21,17 +20,9 @@ class LinkController extends AbstractController
         $link = new Link();
         $link
             ->setUser($this->getUser())
-            ->setTarget($target)
-            ->setStatus(Link::STATUS_SENT);
+            ->setTarget($target);
 
-        $linkRepository = $this->getDoctrine()->getRepository(Link::class);
-
-        $this->getDoctrine()->getManager()->persist($link);
-        $this->getDoctrine()->getManager()->flush();
-
-        return $this->render('link/panel.html.twig', [
-            'link' => $link,
-        ]);
+        return $this->update($link, Link::STATUS_SENT);
     }
 
     /**
@@ -39,9 +30,20 @@ class LinkController extends AbstractController
      */
     public function validate(Link $link)
     {
-        $link->setStatus(Link::STATUS_VALIDATED);
+        return $this->update($link, Link::STATUS_VALIDATED);
+    }
 
-        $linkRepository = $this->getDoctrine()->getRepository(Link::class);
+    /**
+     * @Route("/link/blacklist/{link}", name="link_blacklist")
+     */
+    public function blacklist(Link $link)
+    {
+        return $this->update($link, Link::STATUS_BLACKLISTED);
+    }
+
+    private function update(Link $link, $status)
+    {
+        $link->setStatus($status);
 
         $this->getDoctrine()->getManager()->persist($link);
         $this->getDoctrine()->getManager()->flush();
