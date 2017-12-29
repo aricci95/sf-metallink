@@ -22,7 +22,6 @@ class RegistrationType extends AbstractType
             ])
             ->add('agreements', CheckboxType::class, [
                 'mapped' => false,
-                'label' => "J'ai lu et j'accepte les mentions légales du site MetalLinK.fr",
                 'required' => true,
             ]);
     }

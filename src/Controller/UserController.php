@@ -26,7 +26,7 @@ class UserController extends AbstractController
      */
     public function show(User $user)
     {
-        return $this->render('user/profile.html.twig', [
+        return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -38,7 +38,7 @@ class UserController extends AbstractController
     {
         $users = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findBy(['id' => 1]);
+            ->findBy($request->query->all());
 
         return $this->render('user/search.html.twig', [
             'users' => $users,

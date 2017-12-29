@@ -36,7 +36,7 @@
                     {{ user.username|capitalize }} {{ user.status }}
                     {% if app.user == user %}
                         <span style="float:right;">
-                            <a href="profile/edit" title="Editer"><img src="/images/icone/edit.png" /></a>
+                            <a href="{{ path('fos_user_profile_edit') }}" title="Editer"><img src="/images/icone/edit.png" /></a>
                         </span>
                     {% endif %}
                 </div>
@@ -55,81 +55,28 @@
                             <td>{{ user.job }}</td>
                         </tr>
                     {% endif %}
-                    <?php endif; ?>
-                    <?php if (!empty($this->user['look_libel'])) : ?>
+                    {% if user.height and user.weight %}
                         <tr>
-                            <th>Lifestyle</th>
-                            <td><?php echo ucfirst($this->user['look_libel']); ?></td>
+                            <th>Mensurations</th>
+                            <td>{{ user.height }} cm, {{ user.weight }} kg</td>
                         </tr>
-                    <?php endif; ?>
-                    <?php if (!empty($this->user['style_libel'])) : ?>
-                        <tr>
-                            <th>Style musical</th>
-                            <td><?php echo ucfirst($this->user['style_libel']); ?></td>
-                        </tr>
-                    <?php endif; ?>
+                    {% endif %}
                     <tr>
-                        <th>Mensurations</th>
-                        <td><?php if ($this->user['user_taille'] > 0)
-                        echo $this->user['user_taille'] . ' cm';
-                    if ($this->user['user_poids'] > 0)
-                        echo ', ' . $this->user['user_poids'] . ' kg';
-                    ?>
-                        </td>
+                        <th>Tatouages</th>
+                        <td>{% if user.isTattooed %}oui{% else %}non{% endif %}</td>
                     </tr>
-                    <?php if (!empty($this->details['tattoo'])) : ?>
-                        <tr>
-                            <th>Tatouages</th>
-                        <td><?php echo $this->details['tattoo']; ?></td>
+                    <tr>
+                        <th>Piercings</th>
+                        <td>{% if user.isPierced %}oui{% else %}non{% endif %}</td>
                     </tr>
-                    <?php endif; ?>
-                    <?php if (!empty($this->details['piercing'])) : ?>
-                        <tr>
-                            <th>Piercings</th>
-                            <td><?php echo $this->details['piercing']; ?></td>
-                        </tr>
-                    <?php endif; ?>
                 </table>
             </div>
         </div>
-        <?php if(!empty($this->user['user_description'])) : ?>
+        {% if user.description %}
             <div class="title noMargin">DESCRIPTION</div>
             <div class="shadow noMargin"></div>
-            <?php echo nl2br(stripcslashes($this->user['user_description'])); ?>
+            {{ user.description}}
             <div style="height:25px"></div>
-        <?php endif; ?>
-        <?php if (!empty($this->tastes)) : ?>
-            <div class="title noMargin">PASSIONS</div>
-            <div class="shadow noMargin"></div>
-            <div style="display: inline-block;">
-                <div style="float:left;background-image:url('/images/260882b-emp.jpg');width:350px;height:500px;">
-                    <div class="vesteAPatchs">
-                        <?php for ($i=0; $i < 15; $i++) : ?>
-                            <?php if (!empty($this->tastes['data']['groupes'][$i])) : ?>
-                                <span><?php echo $this->tastes['data']['groupes'][$i]; ?></span>
-                        <?php else :
-                                break;
-                            endif;
-                        endfor; ?>
-                    </div>
-                </div>
-                <?php if(!empty($this->tastes)) : ?>
-                    <div style="float:left;width:400px;">
-                        <?php foreach($this->tasteTypes as $typeId => $title) : ?>
-                            <?php if (!empty($this->tastes['data'][$title]) && $typeId > 1 && is_array($this->tastes['data'][$title])) : ?>
-                                <h2><?php echo strtoupper($title); ?></h2>
-                                <ul class="tasteDatas" data-taste-type="<?php echo $title; ?>">
-                                    <?php foreach($this->tastes['data'][$title] as $info) : ?>
-                                        <li>
-                                            <?php echo nl2br(stripcslashes($info)); ?>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
+        {% endif %}
     </div>
 {% endblock %}

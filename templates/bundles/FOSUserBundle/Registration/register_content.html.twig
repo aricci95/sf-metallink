@@ -1,8 +1,46 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<div class="title topShadow">INSCRIPTION</div>
+<div class="shadow"></div>
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    <div style="margin-left:140px;">
+        <table>
+            <tr>
+                <th>{{ form_label(form.username) }}</th>
+                <td>{{ form_widget(form.username) }}{{ form_errors(form.username) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.email) }}</th>
+                <td>{{ form_widget(form.email) }}{{ form_errors(form.email) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.gender) }}</th>
+                <td>{{ form_widget(form.gender) }}{{ form_errors(form.gender) }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    {{ form_widget(form.plainPassword) }} {{ form_errors(form.plainPassword) }}
+                </th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <label>{{ form_widget(form.agreements) }} J'ai lu et j'accepte les mentions légales du site MetalLinK.fr <a href="subscribe/terms" target="_blank"><u>disponibles ICI</u></a></label>
+                </td>
+            </tr>
+            <tr>
+                <td style="color:red;">
+                    <br/>
+                    <i>Pensez à vérifier vos spams si vous ne recevez aucune confirmation</i>
+                    <br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input style="margin-left:170px;" size="20" type="submit" value="{{ 'registration.submit'|trans }}" />
+                </td>
+            </tr>
+        </table>
     </div>
 {{ form_end(form) }}

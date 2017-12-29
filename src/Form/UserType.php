@@ -20,6 +20,10 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('birthdate', BirthdayType::class)
+            ->add('shortDescription')
+            ->add('description')
+            ->add('height')
+            ->add('weight')
             ->add('job')
             ->add('isTattooed')
             ->add('isPierced');

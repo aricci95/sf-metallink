@@ -13,14 +13,17 @@ $(document).ready(function() {
     });
 
     function refresh() {
-        $.post('user/search', {
-                search_login : $('#user_search_username').val(),
-                search_distance : $('#user_search_distance').val(),
-                search_gender : $('#user_search_gender').val(),
-                search_age : $('#user_search_age').val(),
-                search_keyword : $('#user_search_keyword').val(),
-                search_style : $('#user_search_style').val()
-            },
+        var params = {};
+
+        if ($('#user_search_username').val()) {
+          params['username'] = $('#user_search_username').val();
+        }
+
+        if ($('#user_search_gender').val()) {
+          params['gender'] = $('#user_search_gender').val();
+        }
+
+        $.get('user/search', params,
             function(data) {
                tmp = $(data);
                loading = $(".loading");
