@@ -49,7 +49,20 @@ class Link
      *
      * @ORM\Column(name="status", type="smallint", nullable=false)
      */
-    private $status = self::STATUS_NONE;
+    private $status;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->status    = self::STATUS_NONE;
+    }
 
     /**
      * Gets the value of user.
@@ -131,5 +144,29 @@ class Link
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Gets the value of createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the value of createdAt.
+     *
+     * @param \DateTime $createdAt the created at
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

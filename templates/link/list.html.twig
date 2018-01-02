@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/link_search.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div align="center" class="results" data-status="{{ status }}"></div>
+    <img class="loading" src="/images/loading.gif" style="display:none;" data-show="false" data-end="false" data-offset="0" data-href="" />
+{% endblock %}

@@ -22,7 +22,7 @@ class LinkController extends AbstractController
             ->setUser($this->getUser())
             ->setTarget($target);
 
-        return $this->update($link, Link::STATUS_SENT);
+        return $this->update($link, Link::STATUS_PENDING);
     }
 
     /**
@@ -50,6 +50,31 @@ class LinkController extends AbstractController
 
         return $this->render('link/panel.html.twig', [
             'link' => $link,
+        ]);
+    }
+
+    /**
+     * @Route("/link/{status}", name="link_list")
+     */
+    public function list($status)
+    {
+        return $this->render('link/list.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * @Route("/link/search/{status}", name="link_search")
+     */
+    public function search($status)
+    {
+        $links = $this->getDoctrine()->getRepository(Link::class)->findBy([
+            'target' => $this->getUser(),
+            'status' => $status
+        ], ['createdAt' => 'DESC']);
+
+        return $this->render('link/search.html.twig', [
+            'links' => $links,
         ]);
     }
 }

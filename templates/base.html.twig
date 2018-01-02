@@ -22,11 +22,11 @@
                         <a class="menuIcone" href="{{ path('message_list') }}"><img src="/images/icone/message.png" />
                             <b>{{ indicator.count('message') }}</b>
                         </a>
-                        <a class="menuIcone" href="link/sent">
+                        <a class="menuIcone" href="{{ path('link_list', {'status' : '1'}) }}">
                             <img src="/images/icone/link.png" />
                             <b>{{ indicator.count('link_sent') }}</b>
                         </a>
-                        <a class="menuIcone" href="link/accepted">
+                        <a class="menuIcone" href="{{ path('link_list', {'status' : '2'}) }}">
                             <img src="/images/icone/linked.png" />
                             <b>{{ indicator.count('link_accepted') }}</b>
                         </a>
@@ -34,7 +34,7 @@
                             <img src="/images/icone/views.png" />
                             <b>{{ indicator.count('view') }}</b>
                         </a>
-                        <a class="menuIcone" href="link/blacklist">
+                        <a class="menuIcone" href="{{ path('link_list', {'status' : '3'}) }}">
                             <img src="/images/icone/blacklist.png" />
                             <b>{{ indicator.count('link_blacklisted') }}</b>
                         </a>

@@ -1,0 +1,7 @@
+{% if links %}
+    {% for link in links %}
+        {% include 'user/item.html.twig' with {'user' : link.user } %}
+    {% endfor %}
+{% else %}
+    Aucune demande.
+{% endif %}
