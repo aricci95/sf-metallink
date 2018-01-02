@@ -1,0 +1,7 @@
+{% if messages %}
+    {% for message in messages %}
+        {% include 'message/item.html.twig' with {'message' : message } %}
+    {% endfor %}
+{% else %}
+    Aucun message.
+{% endif %}

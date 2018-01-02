@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
+    const STATUS_NEW     = 1;
+    const STATUS_READ    = 2;
+    const STATUS_DELETED = 3;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -46,6 +50,18 @@ class Message
      * @ORM\Column(name="content", type="text", nullable=false)
      */
     private $content;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="smallint", nullable=false)
+     */
+    private $status;
+
+    public function getDays()
+    {
+        return (new \DateTime())->diff($this->createdAt)->days;
+    }
 
     /**
      * Gets the value of id.
@@ -151,5 +167,44 @@ class Message
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * Gets the value of status.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Sets the value of status.
+     *
+     * @param int $status the status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isNew()
+    {
+        return $this->status == self::STATUS_NEW;
+    }
+
+    public function isRead()
+    {
+        return $this->status == self::STATUS_READ;
+    }
+
+    public function isDeleted()
+    {
+        return $this->status == self::STATUS_DELETED;
     }
 }
