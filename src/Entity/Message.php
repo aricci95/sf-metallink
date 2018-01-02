@@ -58,6 +58,12 @@ class Message
      */
     private $status;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->status    = self::STATUS_NEW;
+    }
+
     public function getDays()
     {
         return (new \DateTime())->diff($this->createdAt)->days;

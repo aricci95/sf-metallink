@@ -2,6 +2,15 @@
 
 {% block body %}
     <div class="title topShadow" style="font-size: 20px;">{{ author.username|capitalize }}</div>
+        {{ form_start(form) }}
+            <div style="margin: 10px;">
+                {{ form_widget(form.user, {'attr' : {'class' : 'hidden'}}) }}
+                {{ form_widget(form.target, {'attr' : {'class' : 'hidden'}}) }}
+                {{ form_widget(form.content, {'attr': {'cols': '95', 'rows' : '8'}}) }}
+            </div>
+        {{ form_end(form) }}
+        <div style="margin-bottom: 10px;"></div>
+
         <table class="results" style="padding-right:2px;" cellspacing="0">
             {% if messages %}
                 {% for message in messages %}
