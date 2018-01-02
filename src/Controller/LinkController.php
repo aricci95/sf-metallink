@@ -30,7 +30,7 @@ class LinkController extends AbstractController
      */
     public function validate(Link $link)
     {
-        return $this->update($link, Link::STATUS_VALIDATED);
+        return $this->update($link, Link::STATUS_ACCEPTED);
     }
 
     /**

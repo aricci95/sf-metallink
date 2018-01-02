@@ -147,7 +147,7 @@ class User extends BaseUser
 
     public function isLinked(User $user)
     {
-        return $this->getLink($user)->getStatus() == Link::STATUS_VALIDATED;
+        return $this->getLink($user)->getStatus() == Link::STATUS_ACCEPTED;
     }
 
     public function isBlacklisted(User $user)

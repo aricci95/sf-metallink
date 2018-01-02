@@ -14,6 +14,7 @@ Encore
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/user_search', './assets/js/user_search.js')
     .addEntry('js/message_search', './assets/js/message_search.js')
+    .addEntry('js/view_search', './assets/js/view_search.js')
     .addEntry('css/app', './assets/css/app.css')
     // .addStyleEntry('css/app', './assets/css/app.scss')
 

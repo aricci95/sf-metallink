@@ -59,7 +59,7 @@ class MessageController extends AbstractController
      */
     public function search()
     {
-        $messages = $this->getDoctrine()->getRepository(Message::class)->findByTarget($this->getUser());
+        $messages = $this->getDoctrine()->getRepository(Message::class)->findBy(['target' => $this->getUser()], ['createdAt' => 'DESC']);
 
         return $this->render('message/search.html.twig', [
             'messages' => $messages,

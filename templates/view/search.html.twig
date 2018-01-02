@@ -1,0 +1,7 @@
+{% if views %}
+    {% for view in views %}
+        {% include 'user/item.html.twig' with {'user' : view.user } %}
+    {% endfor %}
+{% else %}
+    Aucune vue.
+{% endif %}

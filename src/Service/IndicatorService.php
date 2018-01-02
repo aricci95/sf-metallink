@@ -66,7 +66,7 @@ class IndicatorService
 
     public function isAccepted(User $user)
     {
-        return $this->getLink($user)->getStatus() == Link::STATUS_VALIDATED;
+        return $this->getLink($user)->getStatus() == Link::STATUS_ACCEPTED;
     }
 
     public function isBlacklisted(User $user)

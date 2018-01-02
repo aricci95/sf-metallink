@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Search\UserSearchType;
 use App\Entity\User;
+use App\Entity\View;
 use App\Repository\UserRepository;
 
 class UserController extends AbstractController
@@ -26,6 +27,25 @@ class UserController extends AbstractController
      */
     public function show(User $user)
     {
+        if ($user != $this->getUser()) {
+            $view = $this->getDoctrine()->getManager()->getRepository(View::class)->findOneBy([
+                'user'   => $this->getUser(),
+                'target' => $user,
+            ]);
+
+            if (!$view) {
+                $view = new View();
+                $view
+                    ->setUser($this->getUser())
+                    ->setTarget($user);
+
+                $em = $this->getDoctrine()->getManager();
+
+                $em->persist($view);
+                $em->flush();
+            }
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
