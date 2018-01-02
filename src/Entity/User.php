@@ -145,14 +145,14 @@ class User extends BaseUser
         return '/photos/' . $type . '/' . $this->profilePictureName;
     }
 
-    public function isLinked()
+    public function isLinked(User $user)
     {
-        return false;
+        return $this->getLink($user)->getStatus() == Link::STATUS_VALIDATED;
     }
 
-    public function isBlacklisted()
+    public function isBlacklisted(User $user)
     {
-        return false;
+        return $this->getLink($user)->getStatus() == Link::STATUS_BLACKLISTED;
     }
 
     public function getAge()
@@ -491,7 +491,7 @@ class User extends BaseUser
             }
         }
 
-        foreach ($target->linksSent as $link) {
+        foreach ($this->linksReceived as $link) {
             if ($link->getTarget()->getId() == $this->id) {
                 return $link;
             }

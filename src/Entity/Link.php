@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Link
 {
     const STATUS_NONE        = 0;
-    const STATUS_SENT        = 1;
+    const STATUS_PENDING     = 1;
     const STATUS_VALIDATED   = 2;
     const STATUS_BLACKLISTED = 3;
 
