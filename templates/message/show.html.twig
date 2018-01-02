@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="title topShadow" style="font-size: 20px;">{{ message.user.username|capitalize }}</div>
+    <div class="title topShadow" style="font-size: 20px;">{{ author.username|capitalize }}</div>
         <table class="results" style="padding-right:2px;" cellspacing="0">
+            {% if messages %}
+                {% for message in messages %}
+                    {% include 'message/content.html.twig' with {'message' : message } %}
+                {% endfor %}
+            {% else %}
+                Aucun message.
+            {% endif %}
             <tr>
                 <td>
-                    <img class="loading" src="/appli/js/loading.gif" data-end="false" style="display:none;" data-show="false" data-offset="0" data-href="message" data-option="" />
+                    <img class="loading" src="/images/loading.gif" data-end="false" style="display:none;" data-show="false" data-offset="0" data-href="message" data-option="" />
                 </td>
             </tr>
         </table>
