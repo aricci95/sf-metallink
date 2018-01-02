@@ -5,3 +5,4 @@ twig:
 
     globals:
         link: '@App\Service\LinkService'
+        indicator: '@App\Service\IndicatorService'

@@ -6,21 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LinkRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ViewRepository")
  * @ORM\Table(
- *     name="link",
+ *     name="view",
  *     uniqueConstraints={
  *         @ORM\UniqueConstraint(columns={"user_id", "target_id"})
  *     }
  *  )
  */
-class Link
+class View
 {
-    const STATUS_NONE        = 0;
-    const STATUS_PENDING     = 1;
-    const STATUS_ACCEPTED    = 2;
-    const STATUS_BLACKLISTED = 3;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -31,7 +26,7 @@ class Link
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="linksSent")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -39,17 +34,32 @@ class Link
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="linksReceived")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
     private $target;
 
     /**
-     * @var int
+     * @var \DateTime
      *
-     * @ORM\Column(name="status", type="smallint", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $status = self::STATUS_NONE;
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Gets the value of user.
@@ -100,36 +110,26 @@ class Link
     }
 
     /**
-     * Gets the value of status.
+     * Gets the value of createdAt.
      *
-     * @return int
+     * @return \DateTime
      */
-    public function getStatus()
+    public function getCreatedAt()
     {
-        return $this->status;
+        return $this->createdAt;
     }
 
     /**
-     * Sets the value of status.
+     * Sets the value of createdAt.
      *
-     * @param int $status the status
+     * @param \DateTime $createdAt the created at
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->status = $status;
+        $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-    /**
-     * Gets the value of id.
-     *
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

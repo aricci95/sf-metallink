@@ -20,23 +20,23 @@
                     </div>
                     <span style="float: right;font-size: 25px;">
                         <a class="menuIcone" href="{{ path('message_list') }}"><img src="/images/icone/message.png" />
-                            <b>0</b>
+                            <b>{{ indicator.count('message') }}</b>
                         </a>
                         <a class="menuIcone" href="link/sent">
                             <img src="/images/icone/link.png" />
-                            <b>{{ link.links|length}} </b>
+                            <b>{{ indicator.count('link_sent') }}</b>
                         </a>
                         <a class="menuIcone" href="link/accepted">
                             <img src="/images/icone/linked.png" />
-                            <b>0</b>
+                            <b>{{ indicator.count('link_accepted') }}</b>
                         </a>
                         <a class="menuIcone" href="views">
                             <img src="/images/icone/views.png" />
-                            <b>0</b>
+                            <b>{{ indicator.count('view') }}</b>
                         </a>
                         <a class="menuIcone" href="link/blacklist">
                             <img src="/images/icone/blacklist.png" />
-                            <b>0</b>
+                            <b>{{ indicator.count('link_blacklisted') }}</b>
                         </a>
                     </span>
                  {% else %}

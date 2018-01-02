@@ -22,4 +22,32 @@ class LinkRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function countByUser(User $user, $status)
+    {
+        $qb = $this->createQueryBuilder('link')
+            ->select('COUNT(1)')
+            ->where('link.status = :status')
+            ->setParameter('status', $status)
+            ->setParameter('user', $user);
+
+        switch ($status) {
+            case Link::STATUS_PENDING:
+            case Link::STATUS_BLACKLISTED:
+                $qb->andWhere('link.user = :user');
+                break;
+
+            case Link::STATUS_ACCEPTED:
+                $qb->andWhere('link.user = :user OR link.target = :user');
+                break;
+
+            default:
+                $qb->andWhere('link.target = :user');
+                break;
+        }
+        
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
