@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\User;
 use App\Entity\Link;
 
@@ -12,6 +13,7 @@ class LinkController extends AbstractController
 {
     /**
      * @Route("/link/create", name="link_create")
+     * @Security("has_role('ROLE_USER')")
      */
     public function create(Request $request)
     {
@@ -27,6 +29,7 @@ class LinkController extends AbstractController
 
     /**
      * @Route("/link/validate/{link}", name="link_validate")
+     * @Security("has_role('ROLE_USER')")
      */
     public function validate(Link $link)
     {
@@ -35,6 +38,7 @@ class LinkController extends AbstractController
 
     /**
      * @Route("/link/blacklist/{link}", name="link_blacklist")
+     * @Security("has_role('ROLE_USER')")
      */
     public function blacklist(Link $link)
     {
@@ -49,7 +53,7 @@ class LinkController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->render('link/panel.html.twig', [
-            'link' => $link,
+            'current_link' => $link,
         ]);
     }
 
@@ -65,6 +69,7 @@ class LinkController extends AbstractController
 
     /**
      * @Route("/link/search/{status}", name="link_search")
+     * @Security("has_role('ROLE_USER')")
      */
     public function search($status)
     {

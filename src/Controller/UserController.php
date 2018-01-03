@@ -27,7 +27,7 @@ class UserController extends AbstractController
      */
     public function show(User $user)
     {
-        if ($user != $this->getUser()) {
+        if ($this->getUser() && $user != $this->getUser()) {
             $view = $this->getDoctrine()->getManager()->getRepository(View::class)->findOneBy([
                 'user'   => $this->getUser(),
                 'target' => $user,

@@ -169,4 +169,19 @@ class Link
 
         return $this;
     }
+
+    public function isPending()
+    {
+        return $this->status == self::STATUS_PENDING;
+    }
+
+    public function isAccepted()
+    {
+        return $this->status == self::STATUS_ACCEPTED;
+    }
+
+    public function isBlacklisted()
+    {
+        return $this->status == self::STATUS_BLACKLISTED;
+    }
 }

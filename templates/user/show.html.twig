@@ -7,18 +7,7 @@
                 <i>{{ user.shortDescription }}</i>
             </div>
             <div style="float: right;">
-                {% if link.isAccepted(user) %}
-                    <a href="profile/block/<?php echo $this->user['user_id']; ?>">
-                        <img src="/images/icone/blacklist.png" title="Bloquer cette personne" />
-                    </a>
-                    <a style="padding-left:50px;" href="{{ path('message_show', {'id' : user.id}) }}">
-                        <img src="/images/boutons/big_email.jpg" title="envoyer un message" />
-                    </a>
-                {% elseif link.isBlacklisted(user) %}
-                    <a href="profile/unblock/<?php echo $this->user['user_id']; ?>">
-                        <img src="/images/icone/link.png" title="Débloquer cette personne" />
-                    </a>
-                {% endif %}
+                {% include 'link/panel.html.twig' with {'current_link' : link.link(user)} %}
             </div>
         </div>
     </div>
