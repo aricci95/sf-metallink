@@ -40,20 +40,20 @@ class LinkService
 
     public function isAccepted(User $user)
     {
-        return $this->getLink($user)->isAccepted();
+        return $this->get($user)->isAccepted();
     }
 
     public function isBlacklisted(User $user)
     {
-        return $this->getLink($user)->isBlacklisted();
+        return $this->get($user)->isBlacklisted();
     }
 
     public function isPending(User $user)
     {
-        return $this->getLink($user)->isPending();
+        return $this->get($user)->isPending();
     }
 
-    public function getLink(User $target)
+    public function get(User $target)
     {
         $user = $this->tokenStorage->getUser();
 

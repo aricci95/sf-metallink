@@ -485,6 +485,10 @@ class User extends BaseUser
 
     public function getLink(User $target)
     {
+        if ($target == $this) {
+            return null;
+        }
+
         foreach ($this->linksSent as $link) {
             if ($link->getTarget()->getId() == $target->getId()) {
                 return $link;

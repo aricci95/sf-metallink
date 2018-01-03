@@ -4,5 +4,5 @@ twig:
     strict_variables: '%kernel.debug%'
 
     globals:
-        link: '@App\Service\LinkService'
+        link_service: '@App\Service\LinkService'
         indicator: '@App\Service\IndicatorService'

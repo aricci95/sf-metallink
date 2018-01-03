@@ -12,17 +12,19 @@ use App\Entity\Link;
 class LinkController extends AbstractController
 {
     /**
-     * @Route("/link/create", name="link_create")
+     * @Route("/link/create/{link}", defaults={"link"=null}, name="link_create")
      * @Security("has_role('ROLE_USER')")
      */
-    public function create(Request $request)
+    public function create(Request $request, Link $link)
     {
-        $target = $this->getDoctrine()->getRepository(User::class)->findOneById($request->get('target_id'));
+        if (!$link) {
+            $target = $this->getDoctrine()->getRepository(User::class)->findOneById($request->get('target_id'));
 
-        $link = new Link();
-        $link
-            ->setUser($this->getUser())
-            ->setTarget($target);
+            $link = new Link();
+            $link
+                ->setUser($this->getUser())
+                ->setTarget($target);
+        }
 
         return $this->update($link, Link::STATUS_PENDING);
     }
@@ -53,7 +55,7 @@ class LinkController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->render('link/panel.html.twig', [
-            'current_link' => $link,
+            'link' => $link,
         ]);
     }
 
@@ -73,13 +75,8 @@ class LinkController extends AbstractController
      */
     public function search($status)
     {
-        $links = $this->getDoctrine()->getRepository(Link::class)->findBy([
-            'target' => $this->getUser(),
-            'status' => $status
-        ], ['createdAt' => 'DESC']);
-
         return $this->render('link/search.html.twig', [
-            'links' => $links,
+            'links' => $this->getDoctrine()->getRepository(Link::class)->getByUser($this->getUser(), $status),
         ]);
     }
 }

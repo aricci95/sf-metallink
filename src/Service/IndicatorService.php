@@ -78,13 +78,4 @@ class IndicatorService
     {
         return $this->getLink($user)->getStatus() == Link::STATUS_PENDING;
     }
-
-    public function getLink(User $target)
-    {
-        if (empty($this->storedLinks[$target->getId()])) {
-            $this->storedLinks[$target->getId()] = $this->tokenStorage->getUser()->getLink($target);
-        }
-
-        return $this->storedLinks[$target->getId()];
-    }
 }

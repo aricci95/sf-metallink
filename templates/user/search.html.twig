@@ -3,5 +3,5 @@
         {% include 'user/item.html.twig' with {'user' : user } %}
     {% endfor %}
 {% else %}
-    <div style="text-align: center;margin-top:50px;">Aucun utilisateur pour les paramètres fournis.</div>
+    <div class="noresults">Aucun utilisateur pour les paramètres fournis.</div>
 {% endif %}

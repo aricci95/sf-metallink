@@ -3,5 +3,5 @@
         {% include 'user/item.html.twig' with {'user' : view.user } %}
     {% endfor %}
 {% else %}
-    <div style="text-align: center;margin-top:50px;">Aucune vue.</div>
+    <div class="noresults">Aucune vue.</div>
 {% endif %}

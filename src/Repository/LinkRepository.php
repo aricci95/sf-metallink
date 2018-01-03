@@ -16,9 +16,37 @@ class LinkRepository extends ServiceEntityRepository
 
     public function getLinks(User $user): array
     {
-         return $this->createQueryBuilder('link')
+        return $this->createQueryBuilder('link')
             ->where('link.user = :user OR link.target = :user')
             ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getByUser(User $user, $status): array
+    {
+        $qb = $this
+            ->createQueryBuilder('link')
+            ->where('link.status = :status')
+            ->setParameter('status', $status)
+            ->setParameter('user', $user)
+            ->orderBy('link.createdAt', 'DESC');
+        
+        switch ($status) {
+            case Link::STATUS_PENDING:
+                $qb->andWhere('link.target = :user');
+                break;
+
+            case Link::STATUS_BLACKLISTED:
+                $qb->andWhere('link.user = :user');
+                break;
+
+            case Link::STATUS_ACCEPTED:
+                $qb->andWhere('link.user = :user OR link.target = :user');
+                break;
+        }
+
+        return $qb
             ->getQuery()
             ->getResult();
     }
@@ -33,6 +61,9 @@ class LinkRepository extends ServiceEntityRepository
 
         switch ($status) {
             case Link::STATUS_PENDING:
+                $qb->andWhere('link.target = :user');
+                break;
+
             case Link::STATUS_BLACKLISTED:
                 $qb->andWhere('link.user = :user');
                 break;

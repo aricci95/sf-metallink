@@ -7,7 +7,7 @@
                 <i>{{ user.shortDescription }}</i>
             </div>
             <div style="float: right;">
-                {% include 'link/panel.html.twig' with {'current_link' : link.link(user)} %}
+                {% include 'link/panel.html.twig' with {'link' : link_service.get(user)} %}
             </div>
         </div>
     </div>
