@@ -12,19 +12,17 @@ use App\Entity\Link;
 class LinkController extends AbstractController
 {
     /**
-     * @Route("/link/create/{link}", defaults={"link"=null}, name="link_create")
+     * @Route("/link/create", name="link_create")
      * @Security("has_role('ROLE_USER')")
      */
-    public function create(Request $request, Link $link)
+    public function create(Request $request)
     {
-        if (!$link) {
-            $target = $this->getDoctrine()->getRepository(User::class)->findOneById($request->get('target_id'));
+        $target = $this->getDoctrine()->getRepository(User::class)->findOneById($request->get('target_id'));
 
-            $link = new Link();
-            $link
-                ->setUser($this->getUser())
-                ->setTarget($target);
-        }
+        $link = new Link();
+        $link
+            ->setUser($this->getUser())
+            ->setTarget($target);
 
         return $this->update($link, Link::STATUS_PENDING);
     }

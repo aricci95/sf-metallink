@@ -156,6 +156,15 @@ class Link
         return $this->createdAt;
     }
 
+    public function getLinkedUser(User $user)
+    {
+        if ($this->user != $user) {
+            return $this->user;
+        }
+
+        return $this->target;
+    }
+
     /**
      * Sets the value of createdAt.
      *

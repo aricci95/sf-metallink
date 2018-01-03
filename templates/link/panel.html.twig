@@ -1,18 +1,24 @@
 {% if link %}
     <div class="linkDestinataire" data-target-id="{{ link.target.id }}">
-        {% if not link.status or link.isBlacklisted %}
-            {% if link.user != app.user %}
-                <a href="#">
-                    <img class="link" data-action="{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}create{% else %}register{% endif %}" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/link.png" title="Linker cette personne" />
-                </a>
-            {% endif %}
+        {% if not link.status %}
+            <a href="#">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <img class="link" action="create" data-href="{{ path('link_create') }}" data-target-id="{{ link.target.id }}" src="/images/icone/link.png" title="Linker cette personne" />
+                {% else %}
+                    <img class="link" action="register" data-href="{{ path('fos_user_registration_register') }}" src="/images/icone/link.png" title="Linker cette personne" />
+                {% endif %}
+            </a>
+        {% elseif link.isBlacklisted %}
+            <a href="#">
+                <img class="link" action="validate" data-href="{{ path('link_validate', {'link' : link.id }) }}" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/link.png" title="Linker cette personne" />
+            </a>
         {% elseif link.isPending %}
             {% if link.target == app.user %}
                 <a href="">
-                    <img class="link" data-action="validate" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/link.png" title="Valider la demande" />
+                    <img class="link" action="validate" data-href="{{ path('link_validate', {'link' : link.id }) }}" data-link-id="{{ link.id }}" src="/images/icone/link.png" title="Valider la demande" />
                 </a>
                 <a href="">
-                    <img class="link" data-action="blacklist" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/blacklist.png" title="Refuser la demande" />
+                    <img class="link" action="blacklist" data-href="{{ path('link_blacklist', {'link' : link.id }) }}" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/blacklist.png" title="Refuser la demande" />
                 </a>
             {% else %}
                 <img src="/images/icone/link_sent.png" title="Demande en attente" />
@@ -25,7 +31,7 @@
                 <img src="/images/icone/message.jpg" title="Envoyer un message" />
             </a>
             <a href="">
-                <img class="link" data-action="blacklist" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/blacklist.png" title="Refuser la demande" />
+                <img class="link" action="blacklist" data-href="{{ path('link_blacklist', {'link' : link.id }) }}" data-target-id="{{ link.target.id }}" data-link-id="{{ link.id }}" src="/images/icone/blacklist.png" title="Refuser la demande" />
             </a>
         {% endif %}
     </div>

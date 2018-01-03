@@ -1,6 +1,6 @@
 {% if links %}
     {% for link in links %}
-        {% include 'user/item.html.twig' with {'user' : link.target } %}
+        {% include 'user/item.html.twig' with {'user' : link.linkedUser(app.user) } %}
     {% endfor %}
 {% else %}
     <div class="noresults">Aucune demandes.</div>

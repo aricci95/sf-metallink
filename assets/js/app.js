@@ -9,14 +9,20 @@ $(document).ready(function() {
         $(e.target).attr('src', '/images/icone/loading.gif');
 
         if ($(e.target).data('action') == 'register') {
-            window.location.replace('/register');
-        } else {
+            window.location.replace($(e.target).data('href'));
+        } else if ($(e.target).data('link-id')) {
             $.ajax({
-                url: '/link/' + $(e.target).data('action') + '/' +  $(e.target).data('link-id'),
+                url: $(e.target).data('href'),
                 type: 'PUT',
                 success: function(data) {
                     $(e.target).closest('.linkDestinataire').html(data)
                 }
+            });
+        } else {
+            $.post($(e.target).data('href'), {
+                target_id : $(e.target).data('target-id')
+            }, function (data) {
+                $(e.target).closest('.linkDestinataire').html(data)
             });
         }
     });
