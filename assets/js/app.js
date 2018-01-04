@@ -26,14 +26,18 @@ $(document).ready(function() {
                 url: $(e.target).data('href'),
                 type: 'PUT',
                 success: function(data) {
-                    $(e.target).closest('.linkDestinataire').html(data)
+                    if ($(e.target).data('action') == 'blacklist') {
+                        $(e.target).closest('.divElement').fadeOut();
+                    } else {
+                        $(e.target).closest('.linkDestinataire').html(data);
+                    }
                 }
             });
         } else {
             $.post($(e.target).data('href'), {
                 target_id : $(e.target).data('target-id')
             }, function (data) {
-                $(e.target).closest('.linkDestinataire').html(data)
+                $(e.target).closest('.linkDestinataire').html(data);
             });
         }
 

@@ -38,6 +38,16 @@ class LinkService
 
     public function getAll()
     {
+        $currentUser = $this->tokenStorage->getUser();
+
+        if (!($currentUser instanceof User)) {
+            return (new Link())->setTarget($linkedUser);
+        }
+
+        if (is_null($this->links)) {
+            $this->load($currentUser);
+        }
+
         return $this->links;
     }
 
@@ -135,5 +145,17 @@ class LinkService
         return $link
             ->setUser($currentUser)
             ->setTarget($linkedUser);
+    }
+
+    public function getBlacklist()
+    {
+        $blacklist = [];
+        foreach ($this->getAll() as $link) {
+            if ($link['status'] == Link::STATUS_BLACKLISTED) {
+                $blacklist[] = $link['target_id'];
+            }
+        }
+
+        return $blacklist;
     }
 }

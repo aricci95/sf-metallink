@@ -9,11 +9,12 @@ use App\Form\Search\UserSearchType;
 use App\Entity\User;
 use App\Entity\View;
 use App\Repository\UserRepository;
+use App\Service\LinkService;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_list")
+     * @Route("/user/list", name="user_list")
      */
     public function index()
     {
@@ -54,11 +55,11 @@ class UserController extends AbstractController
     /**
      * @Route("/user/search", name="user_search")
      */
-    public function search(Request $request)
+    public function search(Request $request, LinkService $linkService)
     {
         $users = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findBy($request->query->all());
+            ->search($request->query->all(), $linkService->getBlackList());
 
         return $this->render('user/search.html.twig', [
             'users' => $users,
