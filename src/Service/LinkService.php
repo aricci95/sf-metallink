@@ -6,6 +6,7 @@ use App\Entity\Link;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\LinkRepository;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class LinkService
 {
@@ -13,29 +14,47 @@ class LinkService
 
     private $tokenStorage;
 
-    private $storedLinks = [];
+    private $storedLinks = null;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         LinkRepository $linkRepository
     ) {
+        $this->cache          = new FilesystemCache();
         $this->tokenStorage   = $tokenStorage->getToken();
         $this->linkRepository = $linkRepository;
     }
 
-    public function getLinks(User $user = null)
+    public function getAll()
     {
-        if (!$user) {
-            $user = $this->tokenStorage->getUser();
+        return $this->storedLinks;
+    }
+
+    public function load(User $user)
+    {
+        if ($this->storedLinks) {
+            return true;
         }
 
-        if (empty($this->storedLinks)) {
+        $this->storedLinks = [];
+
+        $cacheKey = 'links_' . $user->getId();
+
+        if ($this->cache->has($cacheKey)) {
+            $this->storedLinks = unserialize($this->cache->get($cacheKey));
+        } else {
             foreach ($this->linkRepository->getLinks($user) as $link) {
-                $this->storedLinks[$link->getUser()->getId()] = $link;
+                $this->storedLinks[$link->getUser()->getId()] = [
+                    'user_id'   => $link->getUser(),
+                    'target_id' => $link->getTarget(),
+                    'status'    => $link->getStatus(),
+                ];
             }
+
+            $this->cache->set($cacheKey, serialize($this->storedLinks));
         }
         
-        return $this->storedLinks;
+        return true;
     }
 
     public function isAccepted(User $user)
@@ -53,20 +72,33 @@ class LinkService
         return $this->get($user)->isPending();
     }
 
-    public function get(User $target)
+    public function get(User $linkedUser)
     {
-        $user = $this->tokenStorage->getUser();
+        $currentUser = $this->tokenStorage->getUser();
 
-        if (!($user instanceof $user)) {
+        if (!($currentUser instanceof User)) {
+            return (new Link())->setTarget($linkedUser);
+        }
+
+        if (is_null($this->storedLinks)) {
+            $this->load($currentUser);
+        }
+
+        if (!empty($this->storedLinks[$linkedUser->getId()])) {
+            $storedLink = $this->storedLinks[$linkedUser->getId()];
+
+            $user   = $this->userRepository->getReference($storedLink['user_id']);
+            $target = $this->userRepository->getReference($storedLink['target_id']);
+
             $link = new Link();
-
-            return $link->setTarget($target);
+            
+            return $link
+                ->setUser($user)
+                ->setTarget($target)
+                ->setStatus($storedLink['status']);
+            // $this->storedLinks[$linkedUser->getId()] = $this->tokenStorage->getUser()->getLink($linkedUser);
         }
 
-        if (empty($this->storedLinks[$target->getId()])) {
-            $this->storedLinks[$target->getId()] = $this->tokenStorage->getUser()->getLink($target);
-        }
-
-        return $this->storedLinks[$target->getId()];
+        return $this->storedLinks[$linkedUser->getId()];
     }
 }

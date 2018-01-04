@@ -1,12 +1,8 @@
-{% if link %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and link %}
     <div class="linkDestinataire" data-target-id="{{ link.target.id }}">
         {% if not link.status %}
             <a href="#">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <img class="link" action="create" data-href="{{ path('link_create') }}" data-target-id="{{ link.target.id }}" src="/images/icone/link.png" title="Linker cette personne" />
-                {% else %}
-                    <img class="link" action="register" data-href="{{ path('fos_user_registration_register') }}" src="/images/icone/link.png" title="Linker cette personne" />
-                {% endif %}
+                <img class="link" action="create" data-href="{{ path('link_create') }}" data-target-id="{{ link.target.id }}" src="/images/icone/link.png" title="Linker cette personne" />
             </a>
         {% elseif link.isBlacklisted %}
             <a href="#">
