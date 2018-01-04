@@ -3,14 +3,24 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\User;
 use App\Entity\Link;
+use App\Repository\LinkRepository;
+use App\Service\LinkService;
 
 class LinkController extends AbstractController
 {
+    private $linkService;
+
+    public function __construct(LinkService $linkService)
+    {
+        $this->linkService = $linkService;
+    }
+
     /**
      * @Route("/link/create", name="link_create")
      * @Security("has_role('ROLE_USER')")
@@ -51,6 +61,8 @@ class LinkController extends AbstractController
 
         $this->getDoctrine()->getManager()->persist($link);
         $this->getDoctrine()->getManager()->flush();
+
+        $this->linkService->flush($link);
 
         return $this->render('link/panel.html.twig', [
             'link' => $link,

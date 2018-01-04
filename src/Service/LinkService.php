@@ -6,7 +6,10 @@ use App\Entity\Link;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\LinkRepository;
+use App\Repository\UserRepository;
+use App\Service\IndicatorService;
 use Symfony\Component\Cache\Simple\FilesystemCache;
+use Psr\Log\LoggerInterface;
 
 class LinkService
 {
@@ -14,47 +17,75 @@ class LinkService
 
     private $tokenStorage;
 
-    private $storedLinks = null;
+    private $links;
+
+    private $cache;
+
+    private $logger;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        LinkRepository $linkRepository
+        LinkRepository $linkRepository,
+        UserRepository $userRepository,
+        LoggerInterface $logger
     ) {
-        $this->cache          = new FilesystemCache();
+        $this->cache          = new FilesystemCache('metallink', 3600);
         $this->tokenStorage   = $tokenStorage->getToken();
         $this->linkRepository = $linkRepository;
+        $this->userRepository = $userRepository;
+         $this->logger        = $logger;
     }
 
     public function getAll()
     {
-        return $this->storedLinks;
+        return $this->links;
     }
 
     public function load(User $user)
     {
-        if ($this->storedLinks) {
+        if ($this->links) {
             return true;
         }
 
-        $this->storedLinks = [];
+        $this->links = [];
 
-        $cacheKey = 'links_' . $user->getId();
+        $cacheKey = LinkRepository::CACHE_KEY . $user->getId();
 
         if ($this->cache->has($cacheKey)) {
-            $this->storedLinks = unserialize($this->cache->get($cacheKey));
+            $this->logger->debug('Get Links from cache for user ' . $user->getId());
+
+            $this->links = unserialize($this->cache->get($cacheKey));
         } else {
+            $this->logger->info('No cached indicators for user ' . $user->getId());
+
             foreach ($this->linkRepository->getLinks($user) as $link) {
-                $this->storedLinks[$link->getUser()->getId()] = [
-                    'user_id'   => $link->getUser(),
-                    'target_id' => $link->getTarget(),
+                $this->links[$link->getLinkedUser($user)->getId()] = [
+                    'id'        => $link->getId(),
+                    'user_id'   => $link->getUser()->getId(),
+                    'target_id' => $link->getTarget()->getId(),
                     'status'    => $link->getStatus(),
                 ];
             }
 
-            $this->cache->set($cacheKey, serialize($this->storedLinks));
+            $this->cache->set($cacheKey, serialize($this->links));
         }
         
         return true;
+    }
+
+    public function flush(Link $link)
+    {
+        $this->logger->info('Flushing cached links for users ' . $link->getUser()->getId() . ' and ' . $link->getTarget()->getId());
+
+        // Links
+        $this->cache->delete(LinkRepository::CACHE_KEY . $link->getUser()->getId());
+        $this->cache->delete(LinkRepository::CACHE_KEY . $link->getTarget()->getId());
+
+        $this->logger->info('Flushing cached indicators for users ' . $link->getUser()->getId() . ' and ' . $link->getTarget()->getId());
+
+        // Indicators
+        $this->cache->delete(IndicatorService::CACHE_KEY . $link->getUser()->getId());
+        $this->cache->delete(IndicatorService::CACHE_KEY . $link->getTarget()->getId());
     }
 
     public function isAccepted(User $user)
@@ -80,12 +111,12 @@ class LinkService
             return (new Link())->setTarget($linkedUser);
         }
 
-        if (is_null($this->storedLinks)) {
+        if (is_null($this->links)) {
             $this->load($currentUser);
         }
 
-        if (!empty($this->storedLinks[$linkedUser->getId()])) {
-            $storedLink = $this->storedLinks[$linkedUser->getId()];
+        if (!empty($this->links[$linkedUser->getId()])) {
+            $storedLink = $this->links[$linkedUser->getId()];
 
             $user   = $this->userRepository->getReference($storedLink['user_id']);
             $target = $this->userRepository->getReference($storedLink['target_id']);
@@ -93,12 +124,16 @@ class LinkService
             $link = new Link();
             
             return $link
+                ->setId($storedLink['id'])
                 ->setUser($user)
                 ->setTarget($target)
                 ->setStatus($storedLink['status']);
-            // $this->storedLinks[$linkedUser->getId()] = $this->tokenStorage->getUser()->getLink($linkedUser);
         }
 
-        return $this->storedLinks[$linkedUser->getId()];
+        $link = new Link();
+
+        return $link
+            ->setUser($currentUser)
+            ->setTarget($linkedUser);
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
 class User extends BaseUser
@@ -153,6 +153,11 @@ class User extends BaseUser
     public function isBlacklisted(User $user)
     {
         return $this->getLink($user)->getStatus() == Link::STATUS_BLACKLISTED;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getAge()

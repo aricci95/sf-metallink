@@ -193,4 +193,18 @@ class Link
     {
         return $this->status == self::STATUS_BLACKLISTED;
     }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

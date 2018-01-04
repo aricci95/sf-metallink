@@ -1,4 +1,4 @@
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and link %}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and link and link.linkedUser(app.user) != app.user %}
     <div class="linkDestinataire" data-target-id="{{ link.target.id }}">
         {% if not link.status %}
             <a href="#">

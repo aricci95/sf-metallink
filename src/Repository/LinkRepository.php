@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class LinkRepository extends ServiceEntityRepository
 {
+    const CACHE_KEY = 'link_user_';
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Link::class);
