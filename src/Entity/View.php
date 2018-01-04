@@ -42,13 +42,13 @@ class View
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    private $updatedAt;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -110,25 +110,25 @@ class View
     }
 
     /**
-     * Gets the value of createdAt.
+     * Gets the value of updatedAt.
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getUpdatedAt()
     {
-        return $this->createdAt;
+        return $this->updatedAt;
     }
 
     /**
-     * Sets the value of createdAt.
+     * Sets the value of updatedAt.
      *
-     * @param \DateTime $createdAt the created at
+     * @param \DateTime $updatedAt the updated at
      *
      * @return self
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

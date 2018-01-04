@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Entity\View;
 use App\Repository\UserRepository;
 use App\Service\LinkService;
+use App\Service\IndicatorService;
 
 class UserController extends AbstractController
 {
@@ -26,7 +27,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/show/{id}", name="user_show")
      */
-    public function show(User $user)
+    public function show(User $user, IndicatorService $indicatorService)
     {
         if ($this->getUser() && $user != $this->getUser()) {
             $view = $this->getDoctrine()->getManager()->getRepository(View::class)->findOneBy([
@@ -36,15 +37,19 @@ class UserController extends AbstractController
 
             if (!$view) {
                 $view = new View();
-                $view
-                    ->setUser($this->getUser())
-                    ->setTarget($user);
 
-                $em = $this->getDoctrine()->getManager();
-
-                $em->persist($view);
-                $em->flush();
+                $indicatorService->flush($user);
             }
+
+            $view
+                ->setUser($this->getUser())
+                ->setTarget($user)
+                ->setUpdatedAt(new \DateTime());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($view);
+            $em->flush();
         }
 
         return $this->render('user/show.html.twig', [
