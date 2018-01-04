@@ -2,6 +2,17 @@
 const $ = require('jquery');
 
 $(document).ready(function() {
+
+    function refreshIndicator() {
+        $('#indicator').html('<img src="/images/icone/loading.gif">');
+
+        $.get($('#indicator').data('href'), {}, function (data) {
+            $('#indicator').html(data)
+        });
+    }
+
+    refreshIndicator();
+
     // LINK
     $(".site").on('click', '.link', function(e) {
         e.preventDefault();
@@ -25,5 +36,7 @@ $(document).ready(function() {
                 $(e.target).closest('.linkDestinataire').html(data)
             });
         }
+
+        refreshIndicator();
     });
 });

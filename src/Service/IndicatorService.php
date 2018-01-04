@@ -49,19 +49,30 @@ class IndicatorService
         $this->logger            = $logger;
     }
 
-    public function get($type)
-    {
-        if (is_null($this->indicators)) {
-            $this->count();
-        }
-
-        return $this->indicators[$type];
-    }
-
-    public function count()
+    public function getAll()
     {
         $user = $this->tokenStorage->getUser();
 
+        if (!($user instanceof User)) {
+            $this->indicators = [
+                self::TYPE_LINK . '_sent'        => 0,
+                self::TYPE_LINK . '_accepted'    => 0,
+                self::TYPE_LINK . '_blacklisted' => 0,
+
+                self::TYPE_MESSAGE               => 0,
+                self::TYPE_VIEW                  => 0,
+            ];
+        }
+
+        if (is_null($this->indicators)) {
+            $this->count($user);
+        }
+
+        return $this->indicators;
+    }
+
+    public function count(User $user)
+    {
         $cacheKey = self::CACHE_KEY . $user->getId();
 
         if ($this->cache->has($cacheKey)) {
@@ -73,13 +84,13 @@ class IndicatorService
 
             $this->indicators = [
                 // Link states
-                self::TYPE_LINK . '_' . Link::STATUS_PENDING     => $this->linkRepository->countByUser($user, Link::STATUS_PENDING),
-                self::TYPE_LINK . '_' . Link::STATUS_ACCEPTED    => $this->linkRepository->countByUser($user, Link::STATUS_ACCEPTED),
-                self::TYPE_LINK . '_' . Link::STATUS_BLACKLISTED => $this->linkRepository->countByUser($user, Link::STATUS_BLACKLISTED),
+                self::TYPE_LINK . '_sent'        => $this->linkRepository->countByUser($user, Link::STATUS_PENDING),
+                self::TYPE_LINK . '_accepted'    => $this->linkRepository->countByUser($user, Link::STATUS_ACCEPTED),
+                self::TYPE_LINK . '_blacklisted' => $this->linkRepository->countByUser($user, Link::STATUS_BLACKLISTED),
                 // Messages
-                self::TYPE_MESSAGE                               => $this->messageRepository->countByUser($user, Message::STATUS_NEW),
+                self::TYPE_MESSAGE               => $this->messageRepository->countByUser($user, Message::STATUS_NEW),
                 // Views
-                self::TYPE_VIEW                                  => $this->viewRepository->countByUser($user),
+                self::TYPE_VIEW                  => $this->viewRepository->countByUser($user),
             ];
 
             foreach ($this->indicators as $key => $value) {

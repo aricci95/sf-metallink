@@ -36,12 +36,15 @@ class LinkRepository extends ServiceEntityRepository
         
         switch ($status) {
             case Link::STATUS_PENDING:
-            case Link::STATUS_BLACKLISTED:
                 $qb->andWhere('link.target = :user');
                 break;
 
             case Link::STATUS_ACCEPTED:
                 $qb->andWhere('link.user = :user OR link.target = :user');
+                break;
+            
+            case Link::STATUS_BLACKLISTED:
+                $qb->andWhere('link.user = :user');
                 break;
         }
 
@@ -60,7 +63,6 @@ class LinkRepository extends ServiceEntityRepository
 
         switch ($status) {
             case Link::STATUS_PENDING:
-            case Link::STATUS_BLACKLISTED:
                 $qb->andWhere('link.target = :user');
                 break;
 
@@ -68,8 +70,8 @@ class LinkRepository extends ServiceEntityRepository
                 $qb->andWhere('link.user = :user OR link.target = :user');
                 break;
 
-            default:
-                $qb->andWhere('link.target = :user');
+            case Link::STATUS_BLACKLISTED:
+                $qb->andWhere('link.user = :user');
                 break;
         }
         

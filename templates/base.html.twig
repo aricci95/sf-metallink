@@ -18,27 +18,7 @@
                         <a class="lienProfil" href="{{ path('user_show', {'id' : app.user.id }) }}">Mon profil</a>
                         <a href="{{ path('fos_user_security_logout') }}" class="greyLink" style="text-align: left;">Deconnexion</a>
                     </div>
-                    <span style="float: right;font-size: 25px;">
-                        <a class="menuIcone" href="{{ path('message_list') }}"><img src="/images/icone/message.png" />
-                            <b>{{ indicator.count('message') }}</b>
-                        </a>
-                        <a class="menuIcone" href="{{ path('link_list', {'status' : '1'}) }}">
-                            <img src="/images/icone/link.png" />
-                            <b>{{ indicator.count('link_sent') }}</b>
-                        </a>
-                        <a class="menuIcone" href="{{ path('link_list', {'status' : '2'}) }}">
-                            <img src="/images/icone/linked.png" />
-                            <b>{{ indicator.count('link_accepted') }}</b>
-                        </a>
-                        <a class="menuIcone" href="{{ path('view_list') }}">
-                            <img src="/images/icone/views.png" />
-                            <b>{{ indicator.count('view') }}</b>
-                        </a>
-                        <a class="menuIcone" href="{{ path('link_list', {'status' : '3'}) }}">
-                            <img src="/images/icone/blacklist.png" />
-                            <b>{{ indicator.count('link_blacklisted') }}</b>
-                        </a>
-                    </span>
+                    <span id="indicator" style="float: right;font-size: 25px;" data-href="{{ path('indicator_list') }}"></span>
                  {% else %}
                     <div class="greyLink" style="font-family: Metallink;font-size:24px;color: white;">
                         <form action="{{ path('fos_user_security_check') }}" method="post">

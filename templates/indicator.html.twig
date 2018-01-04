@@ -1,0 +1,19 @@
+<a class="menuIcone" href="{{ path('message_list') }}"><img src="/images/icone/message.png" />
+    <b>{{ indicators.message }}</b>
+</a>
+<a class="menuIcone" href="{{ path('link_list', {'status' : '1'}) }}">
+    <img src="/images/icone/link.png" />
+    <b>{{ indicators.link_sent }}</b>
+</a>
+<a class="menuIcone" href="{{ path('link_list', {'status' : '2'}) }}">
+    <img src="/images/icone/linked.png" />
+    <b>{{ indicators.link_accepted }}</b>
+</a>
+<a class="menuIcone" href="{{ path('view_list') }}">
+    <img src="/images/icone/views.png" />
+    <b>{{ indicators.view }}</b>
+</a>
+<a class="menuIcone" href="{{ path('link_list', {'status' : '3'}) }}">
+    <img src="/images/icone/blacklist.png" />
+    <b>{{ indicators.link_blacklisted }}</b>
+</a>

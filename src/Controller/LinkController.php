@@ -52,6 +52,12 @@ class LinkController extends AbstractController
      */
     public function blacklist(Link $link)
     {
+        $linkedUser = $link->getLinkedUser($this->getUser());
+
+        $link
+            ->setUser($this->getUser())
+            ->setTarget($linkedUser);
+
         return $this->update($link, Link::STATUS_BLACKLISTED);
     }
 
