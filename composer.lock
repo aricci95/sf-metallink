@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0e59d357b9a267178a9fc4a17c9352ed",
-    "content-hash": "905405dcdff5ef121ec0bb1871f490be",
+    "hash": "ad92a0f2458768b3899cd1ef2f8c8e56",
+    "content-hash": "d9a82c1332a7feee0b76132ac3ef7226",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -926,63 +926,6 @@
             "time": "2018-01-04 11:35:03"
         },
         {
-            "name": "imagine/imagine",
-            "version": "v0.6.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/149041d2a1b517107bfe270ca2b1a17aa341715d",
-                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "sami/sami": "dev-master"
-            },
-            "suggest": {
-                "ext-gd": "to use the GD implementation",
-                "ext-gmagick": "to use the Gmagick implementation",
-                "ext-imagick": "to use the Imagick implementation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Imagine": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bulat Shakirzyanov",
-                    "email": "mallluhuct@gmail.com",
-                    "homepage": "http://avalanche123.com"
-                }
-            ],
-            "description": "Image processing for PHP 5.3",
-            "homepage": "http://imagine.readthedocs.org/",
-            "keywords": [
-                "drawing",
-                "graphics",
-                "image manipulation",
-                "image processing"
-            ],
-            "time": "2015-09-19 16:54:05"
-        },
-        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1031,106 +974,6 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
-        },
-        {
-            "name": "liip/imagine-bundle",
-            "version": "2.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "8943f6696553d6bad4575151a12ea770996e8c2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/8943f6696553d6bad4575151a12ea770996e8c2b",
-                "reference": "8943f6696553d6bad4575151a12ea770996e8c2b",
-                "shasum": ""
-            },
-            "require": {
-                "imagine/imagine": "^0.6.3,<0.7",
-                "php": "^7.1",
-                "symfony/asset": "^3.0|^4.0",
-                "symfony/filesystem": "^3.0|^4.0",
-                "symfony/finder": "^3.0|^4.0",
-                "symfony/framework-bundle": "^3.0|^4.0",
-                "symfony/options-resolver": "^3.0|^4.0",
-                "symfony/process": "^3.0|^4.0",
-                "symfony/templating": "^3.0|^4.0",
-                "symfony/translation": "^3.0|^4.0"
-            },
-            "require-dev": {
-                "amazonwebservices/aws-sdk-for-php": "^1.0",
-                "aws/aws-sdk-php": "^2.4",
-                "doctrine/cache": "^1.1",
-                "doctrine/orm": "^2.3",
-                "enqueue/enqueue-bundle": "^0.7|^0.8",
-                "ext-gd": "*",
-                "league/flysystem": "^1.0",
-                "psr/log": "^1.0",
-                "satooshi/php-coveralls": "^1.0",
-                "symfony/browser-kit": "^3.0|^4.0",
-                "symfony/console": "^3.0|^4.0",
-                "symfony/dependency-injection": "^3.0|^4.0",
-                "symfony/form": "^3.0|^4.0",
-                "symfony/phpunit-bridge": "^3.0|^4.0",
-                "symfony/validator": "^3.0|^4.0",
-                "symfony/yaml": "^3.0|^4.0",
-                "twig/twig": "^1.12|^2.0"
-            },
-            "suggest": {
-                "alcaeus/mongo-php-adapter": "required on PHP >= 7.0 to use mongo components with mongodb extension",
-                "amazonwebservices/aws-sdk-for-php": "required to use AWS version 1 cache resolver",
-                "aws/aws-sdk-php": "required to use AWS version 2/3 cache resolver",
-                "doctrine/mongodb-odm": "required to use mongodb-backed doctrine components",
-                "enqueue/enqueue-bundle": "^0.7 add if you like to process images in background",
-                "ext-exif": "required to read EXIF metadata from images",
-                "ext-gd": "required to use gd driver",
-                "ext-gmagick": "required to use gmagick driver",
-                "ext-imagick": "required to use imagick driver",
-                "ext-mongo": "required for mongodb components on PHP <7.0",
-                "ext-mongodb": "required for mongodb components on PHP >=7.0",
-                "league/flysystem": "required to use FlySystem data loader or cache resolver",
-                "monolog/monolog": "A psr/log compatible logger is required to enable logging",
-                "twig/twig": "required to use the provided Twig extension. Version 1.12 or greater needed"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.0": "1.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Liip\\ImagineBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Liip and other contributors",
-                    "homepage": "https://github.com/liip/LiipImagineBundle/contributors"
-                }
-            ],
-            "description": "This bundle provides an image manipulation abstraction toolkit for Symfony-based projects.",
-            "homepage": "http://liip.ch",
-            "keywords": [
-                "bundle",
-                "image",
-                "imagine",
-                "liip",
-                "manipulation",
-                "photos",
-                "pictures",
-                "symfony",
-                "transformation"
-            ],
-            "time": "2018-01-03 07:26:02"
         },
         {
             "name": "monolog/monolog",
@@ -3201,55 +3044,6 @@
             "time": "2017-10-11 12:05:26"
         },
         {
-            "name": "symfony/process",
-            "version": "v4.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "2145b3e8137e463b1051b79440a59b38220944f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/2145b3e8137e463b1051b79440a59b38220944f0",
-                "reference": "2145b3e8137e463b1051b79440a59b38220944f0",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Process Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-01-03 07:38:00"
-        },
-        {
             "name": "symfony/profiler-pack",
             "version": "v1.0.3",
             "source": {
@@ -4405,6 +4199,55 @@
                 "environment"
             ],
             "time": "2018-01-03 17:15:19"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "2145b3e8137e463b1051b79440a59b38220944f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/2145b3e8137e463b1051b79440a59b38220944f0",
+                "reference": "2145b3e8137e463b1051b79440a59b38220944f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-01-03 07:38:00"
         },
         {
             "name": "symfony/thanks",
