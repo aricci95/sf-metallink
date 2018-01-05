@@ -1,6 +1,6 @@
 .DS_Store
 /var
-
+/public/photos/*
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*

@@ -142,7 +142,7 @@ class User extends BaseUser
 
     public function getPictureUrl($type = 'small')
     {
-        return '/photos/' . $type . '/' . $this->profilePictureName;
+        return '/photos/' . $this->getId() . '/' . $this->profilePictureName;
     }
 
     public function isLinked(User $user)
