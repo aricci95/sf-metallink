@@ -18,7 +18,8 @@
                     <img src="/images/icone/photo.png" />
                 </a>
             {% endif %}
-            <div  href="{{ user.pictureUrl('profile') }}" class="popup profilePortrait" style="float:left;background-image:url({{ user.pictureUrl('profile') }});"></div>
+            <div  href="{{ user.pictureUrl('profile') }}" class="popup profilePortrait" style="float:left;background-image:url({{ user.pictureUrl('profile') | imagine_filter('my_thumb') }});">
+            </div>
             <div class="shadow"></div>
             <div style="padding-left:10px;padding-right:10px;">
                 <div style="color:rgb(35, 31, 32);font-size: 35px;letter-spacing:-2px;font-weight: bold;width:100%;">
