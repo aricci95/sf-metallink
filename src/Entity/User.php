@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -101,6 +102,14 @@ class User extends BaseUser
      * @ORM\Column(name="profile_picture_name", type="string", length=255, nullable=true)
      */
     private $profilePictureName;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="JPG or PNG only.")
+     * @Assert\File(mimeTypes={ "application/jpeg" })
+     */
+    private $profilePicture;
 
     /**
      * @var Link
@@ -511,5 +520,29 @@ class User extends BaseUser
         return $link
             ->setUser($this)
             ->setTarget($target);
+    }
+
+    /**
+     * Gets the value of profilePicture.
+     *
+     * @return mixed
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * Sets the value of profilePicture.
+     *
+     * @param mixed $profilePicture the profile picture
+     *
+     * @return self
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
     }
 }

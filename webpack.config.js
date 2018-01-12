@@ -16,6 +16,7 @@ Encore
     .addEntry('js/message_search', './assets/js/message_search.js')
     .addEntry('js/view_search', './assets/js/view_search.js')
     .addEntry('js/link_search', './assets/js/link_search.js')
+    .addEntry('js/picture', './assets/js/picture.js')
     .addEntry('css/app', './assets/css/app.css')
     // .addStyleEntry('css/app', './assets/css/app.scss')
 

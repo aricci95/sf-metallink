@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\User;
 
 class UserType extends AbstractType
@@ -20,6 +21,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('birthdate', BirthdayType::class)
+            ->add('profilePicture', FileType::class)
             ->add('shortDescription')
             ->add('description')
             ->add('height')
