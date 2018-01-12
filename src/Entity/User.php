@@ -140,7 +140,7 @@ class User extends BaseUser
         $this->linksSent = new ArrayCollection();
     }
 
-    public function getPictureUrl($type = 'small')
+    public function getPictureUrl()
     {
         return '/photos/' . $this->getId() . '/' . $this->profilePictureName;
     }

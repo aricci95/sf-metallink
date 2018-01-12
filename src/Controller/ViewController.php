@@ -24,7 +24,7 @@ class ViewController extends AbstractController
      */
     public function search()
     {
-        $views = $this->getDoctrine()->getRepository(View::class)->findBy(['target' => $this->getUser()], ['createdAt' => 'DESC']);
+        $views = $this->getDoctrine()->getRepository(View::class)->findBy(['target' => $this->getUser()], ['updatedAt' => 'DESC']);
 
         return $this->render('view/search.html.twig', [
             'views' => $views,
