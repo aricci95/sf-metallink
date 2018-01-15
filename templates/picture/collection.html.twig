@@ -1,0 +1,13 @@
+{% for picture in app.user.pictures %}
+    <a href="#">
+        <div class="editPhoto profilePortrait" style="width:294px;background-size:contain;background-image:url({{ picture.path }});" data-id="{{ picture.id }}">
+            {% if picture.isDefault %}
+                <div class="profilePhoto"></div>
+            {% else %}
+                <div class="definePhoto">
+                    <div class="definePhoto removePhoto" style="margin-left:250px;"></div>
+                </div>
+            {% endif %}
+        </div>
+    </a>
+{% endfor %}

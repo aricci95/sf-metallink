@@ -4,8 +4,8 @@
     <div class="title topShadow" style="font-size: 20px;">{{ author.username|capitalize }}</div>
         {{ form_start(form) }}
             <div style="margin: 10px;">
-                {{ form_widget(form.user, {'attr' : {'class' : 'hidden'}}) }}
-                {{ form_widget(form.target, {'attr' : {'class' : 'hidden'}}) }}
+                {{ form_widget(form.user) }}
+                {{ form_widget(form.target) }}
                 {{ form_widget(form.content, {'attr': {'cols': '95', 'rows' : '8'}}) }}
             </div>
         {{ form_end(form) }}

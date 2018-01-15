@@ -55,6 +55,11 @@ form {
     background-color: rgb(151, 189, 57);
 }
 
+.flash-error {
+    color: white;
+    background-color: red;
+}
+
 .noresults {
     margin: 5%;
 }

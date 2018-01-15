@@ -1,4 +1,4 @@
-/media/cache/*
+/public/media/cache
 .DS_Store
 /var
 /public/photos/*

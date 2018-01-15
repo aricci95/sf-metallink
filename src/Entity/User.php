@@ -97,19 +97,11 @@ class User extends BaseUser
     private $isPierced;
 
     /**
-     * @var string
+     * @var Picture
      *
-     * @ORM\Column(name="profile_picture_name", type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity="Picture", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
-    private $profilePictureName;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="JPG or PNG only.")
-     * @Assert\File(mimeTypes={ "application/jpeg" })
-     */
-    private $profilePicture;
+    private $pictures;
 
     /**
      * @var Link
@@ -128,14 +120,14 @@ class User extends BaseUser
     /**
      * @var Link
      *
-     *  @ORM\OneToMany(targetEntity="Message", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
      */
     private $messagesSent;
     
     /**
      * @var Link
      *
-     *  @ORM\OneToMany(targetEntity="Message", mappedBy="target")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="target")
      */
     private $messagesReceived;
 
@@ -146,12 +138,27 @@ class User extends BaseUser
 
     public function __construct()
     {
-        $this->linksSent = new ArrayCollection();
+        $this->linksSent        = new ArrayCollection();
+        $this->linksReceived    = new ArrayCollection();
+        $this->messagesSent     = new ArrayCollection();
+        $this->messagesReceived = new ArrayCollection();
+        $this->pictures         = new ArrayCollection();
     }
 
-    public function getPictureUrl()
+    public function getDefaultPicture()
     {
-        return '/photos/' . $this->getId() . '/' . $this->profilePictureName;
+        foreach ($this->pictures as $picture) {
+            if ($picture->isDefault()) {
+                return $picture;
+            }
+        }
+
+        return null;
+    }
+
+    public function getPictures()
+    {
+        return $this->pictures;
     }
 
     public function isLinked(User $user)
@@ -488,6 +495,27 @@ class User extends BaseUser
     }
 
     /**
+     * @param Link $link
+     */
+    public function addPicture(Picture $picture)
+    {
+        if (!$this->pictures->contains($picture)) {
+            $picture->setUser($this);
+            $this->pictures->add($picture);
+        }
+    }
+
+    /**
+     * @param Link $link
+     */
+    public function removePicture(Picture $picture)
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->remove($picture);
+        }
+    }
+
+    /**
      * Gets the value of linksReceived.
      *
      * @return Link
@@ -520,29 +548,5 @@ class User extends BaseUser
         return $link
             ->setUser($this)
             ->setTarget($target);
-    }
-
-    /**
-     * Gets the value of profilePicture.
-     *
-     * @return mixed
-     */
-    public function getProfilePicture()
-    {
-        return $this->profilePicture;
-    }
-
-    /**
-     * Sets the value of profilePicture.
-     *
-     * @param mixed $profilePicture the profile picture
-     *
-     * @return self
-     */
-    public function setProfilePicture($profilePicture)
-    {
-        $this->profilePicture = $profilePicture;
-
-        return $this;
     }
 }

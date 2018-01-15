@@ -16,12 +16,20 @@ class MessageType extends AbstractType
         $builder
             ->add('content', TextareaType::class)
             ->add('user', EntityType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'hidden',
+                ],
                 'class' => User::class,
                 'choices' => [
                     $options['user']->getId() => $options['user'],
                 ],
             ])
             ->add('target', EntityType::class, [
+                'attr' => [
+                    'class' => 'hidden',
+                ],
+                'label' => false,
                 'class' => User::class,
                 'choices' => [
                     $options['target']->getId() => $options['target'],

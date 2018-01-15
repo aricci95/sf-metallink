@@ -7,13 +7,7 @@
 {% block body %}
     <div class="heading topShadow">PHOTOS</div>
     <div class="shadow"></div>
-        {{ form_start(form) }}
-            <input type="file" name="new_photo" style="display:none;" />
-            <a href="">
-                <img class="newPhoto" src="images/div/newphoto.png" <?php echo $newPhoto; ?> />
-            </a>
-            <input type="hidden" name="key_id" value="<?php echo $this->keyId; ?>" />
-            <input type="hidden" name="type_id" value="<?php echo $this->typeId; ?>" />
-            <div class="photoCollection"></div>
-        {{ form_end(form) }}
+    {{ form(form) }}
+    <br/><br/>
+    <div id="collection"></div>
 {% endblock %}
