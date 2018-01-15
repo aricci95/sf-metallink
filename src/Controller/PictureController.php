@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Form\PictureType;
 use App\Entity\Picture;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 class PictureController extends AbstractController
 {
@@ -51,6 +52,10 @@ class PictureController extends AbstractController
 
             $picture->setName($fileName);
 
+            if (!$this->getUser()->getDefaultPicture()) {
+                $picture->setIsDefault(true);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($picture);
             $em->flush();
@@ -79,6 +84,22 @@ class PictureController extends AbstractController
             $em->persist($this->getUser());
             $em->flush();
         }
+
+        return $this->render('picture/collection.html.twig', [
+            'pictures' => $this->getUser()->getPictures(),
+        ]);
+    }
+
+    /**
+     * @Route("/picture/remove/{id}", name="picture_remove")
+     */
+    public function remove(Picture $picture, CacheManager $cache)
+    {
+        $cache->remove($picture->getPath());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($picture);
+        $em->flush();
 
         return $this->render('picture/collection.html.twig', [
             'pictures' => $this->getUser()->getPictures(),

@@ -153,6 +153,10 @@ class User extends BaseUser
             }
         }
 
+        if ($this->pictures) {
+            return $this->pictures[0];
+        }
+
         return null;
     }
 

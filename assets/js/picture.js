@@ -20,6 +20,18 @@ $(document).ready(function() {
         });
     });
 
+    $("#collection").on('click', '.removePhoto', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        $(e.target).closest('.editPhoto').fadeOut();
+        
+        $.ajax({
+            url: 'remove/' + $(e.target).closest('.editPhoto').data('id'),
+            type: 'DELETE'
+        });
+    });
+
     function refresh() {
         $.get('collection', {},
             function(data) {
