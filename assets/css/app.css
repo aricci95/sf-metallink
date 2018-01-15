@@ -10,7 +10,7 @@ img {
 }
 
 a {
-    cursor: url(http://cdn.acfrg.com/o/emp.fr/hand3.cur), url(http://cdn.acfrg.com/o/emp.fr/hand3.png), auto;
+    cursor:url('/images/icone/metalhand.cur'), url('/images/icone/metalhand.png'), url('/images/icone/metalhand.gif'), auto;
 }
 
 textarea {
