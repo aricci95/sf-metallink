@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,17 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\User;
 use App\Entity\Link;
 use App\Repository\LinkRepository;
-use App\Service\LinkService;
 
-class LinkController extends AbstractController
+class LinkController extends SearchController
 {
-    private $linkService;
-
-    public function __construct(LinkService $linkService)
-    {
-        $this->linkService = $linkService;
-    }
-
     /**
      * @Route("/link/create", name="link_create")
      * @Security("has_role('ROLE_USER')")
@@ -86,11 +77,11 @@ class LinkController extends AbstractController
     }
 
     /**
-     * @Route("/link/search/{status}/{page}", name="link_search", defaults={"page"=1})
+     * @Route("/link/search/{page}", name="link_search", defaults={"page"=1})
      * @Security("has_role('ROLE_USER')")
      */
     public function search(Request $request, $page = 1)
     {
-        return parent::doSearch(Message::class, $request->query->all(), $page);
+        return parent::doSearch(Link::class, $request->query->all(), $page);
     }
 }

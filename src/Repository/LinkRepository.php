@@ -79,4 +79,43 @@ class LinkRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
+    {
+        $qb = $this->createQueryBuilder('link')
+            ->where('link.status = :status')
+            ->setParameter('status', $params['status']);
+
+        if ($blacklist) {
+            $qb
+                ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
+                ->setParameter('blacklist', $blacklist);
+        }
+
+
+        return $qb
+            
+            ->setFirstResult($page * $pageSize - $pageSize)
+            ->setMaxResults($pageSize)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function searchCount(array $params = [], array $blacklist = [])
+    {
+        $qb = $this->createQueryBuilder('link')
+            ->where('link.status = :status')
+            ->setParameter('status', $params['status']);
+
+        if ($blacklist) {
+            $qb
+                ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
+                ->setParameter('blacklist', $blacklist);
+        }
+
+        return (int) $qb
+            ->select('COUNT(1)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

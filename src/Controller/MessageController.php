@@ -12,7 +12,7 @@ use App\Form\MessageType;
 class MessageController extends SearchController
 {
     /**
-     * @Route("/message", name="message_list")
+     * @Route("/message/list", name="message_list")
      */
     public function list()
     {

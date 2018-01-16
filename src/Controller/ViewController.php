@@ -11,7 +11,7 @@ use App\Repository\ViewRepository;
 class ViewController extends SearchController
 {
     /**
-     * @Route("/view", name="view_list")
+     * @Route("/view/list", name="view_list")
      */
     public function list()
     {

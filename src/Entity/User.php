@@ -153,11 +153,11 @@ class User extends BaseUser
             }
         }
 
-        if ($this->pictures) {
+        if ($this->pictures && $this->pictures[0]) {
             return $this->pictures[0];
         }
 
-        return null;
+        return new Picture();
     }
 
     public function getPictures()

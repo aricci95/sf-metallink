@@ -70,6 +70,10 @@ class Picture
 
     public function getPath()
     {
+        if (!$this->name) {
+            return '/photos/unknown.jpg';
+        }
+
         return $this->getDirectory() . '/' . $this->getName();
     }
 
