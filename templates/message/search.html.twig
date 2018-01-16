@@ -1,5 +1,5 @@
-{% if messages %}
-    {% for message in messages %}
+{% if results %}
+    {% for message in results %}
         {% include 'message/item.html.twig' with {'message' : message } %}
     {% endfor %}
 {% else %}

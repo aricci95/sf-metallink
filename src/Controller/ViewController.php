@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\View;
 use App\Entity\User;
 use App\Repository\ViewRepository;
 
-class ViewController extends AbstractController
+class ViewController extends SearchController
 {
     /**
      * @Route("/view", name="view_list")
@@ -20,14 +19,10 @@ class ViewController extends AbstractController
     }
 
     /**
-     * @Route("/view/search", name="view_search")
+     * @Route("/view/search/{page}", name="view_search", defaults={"page"=1})
      */
-    public function search()
+    public function search(Request $request, $page = 1)
     {
-        $views = $this->getDoctrine()->getRepository(View::class)->findBy(['target' => $this->getUser()], ['updatedAt' => 'DESC']);
-
-        return $this->render('view/search.html.twig', [
-            'views' => $views,
-        ]);
+        return parent::doSearch(View::class, $request->query->all(), $page);
     }
 }

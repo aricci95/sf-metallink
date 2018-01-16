@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Message;
@@ -10,7 +9,7 @@ use App\Entity\User;
 use App\Repository\MessageRepository;
 use App\Form\MessageType;
 
-class MessageController extends AbstractController
+class MessageController extends SearchController
 {
     /**
      * @Route("/message", name="message_list")
@@ -55,14 +54,10 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/message/search", name="message_search")
+     * @Route("/message/search/{page}", name="message_search", defaults={"page"=1})
      */
-    public function search()
+    public function search(Request $request, $page = 1)
     {
-        $messages = $this->getDoctrine()->getRepository(Message::class)->findBy(['target' => $this->getUser()], ['createdAt' => 'DESC']);
-
-        return $this->render('message/search.html.twig', [
-            'messages' => $messages,
-        ]);
+        return parent::doSearch(Message::class, $request->query->all(), $page);
     }
 }

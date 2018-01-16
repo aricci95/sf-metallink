@@ -86,13 +86,11 @@ class LinkController extends AbstractController
     }
 
     /**
-     * @Route("/link/search/{status}", name="link_search")
+     * @Route("/link/search/{status}/{page}", name="link_search", defaults={"page"=1})
      * @Security("has_role('ROLE_USER')")
      */
-    public function search($status)
+    public function search(Request $request, $page = 1)
     {
-        return $this->render('link/search.html.twig', [
-            'links' => $this->getDoctrine()->getRepository(Link::class)->getByUser($this->getUser(), $status),
-        ]);
+        return parent::doSearch(Message::class, $request->query->all(), $page);
     }
 }

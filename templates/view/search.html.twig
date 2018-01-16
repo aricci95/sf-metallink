@@ -1,5 +1,5 @@
-{% if views %}
-    {% for view in views %}
+{% if results %}
+    {% for view in results %}
         {% include 'user/item.html.twig' with {'user' : view.user } %}
     {% endfor %}
 {% else %}

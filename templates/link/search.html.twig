@@ -1,5 +1,5 @@
-{% if links %}
-    {% for link in links %}
+{% if results %}
+    {% for link in results %}
         {% include 'user/item.html.twig' with {'user' : link.linkedUser(app.user) } %}
     {% endfor %}
 {% else %}
