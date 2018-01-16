@@ -14,7 +14,7 @@
     <div style="margin:25px;text-align: left;width: 775px;">
         <div class="grey" style="height: 294px;margin-left: -25px;margin-top: -25px;">
             {% if user == app.user  %}
-                <a style="position:absolute;margin-top: 8px;margin-left: 11px;" href="photo/user" title="Modifier les photos">
+                <a style="position:absolute;margin-top: 8px;margin-left: 11px;" href="{{ path('picture_edit') }}" title="Modifier les photos">
                     <img src="/images/icone/photo.png" />
                 </a>
             {% endif %}

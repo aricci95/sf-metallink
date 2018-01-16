@@ -1,8 +1,33 @@
 // loads the jquery package from node_modules
 const $ = require('jquery');
 
-$(document).ready(function() {
+var nextPage = 1;
 
+window.search = function search(params) {
+    if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage) {
+        $('.results').data('processing', true);
+
+        $.get('search/' + nextPage, params, function(response) {
+            data = JSON.parse(response);
+
+            nextPage = data.nextPage
+
+            if (data.html) {
+                html = $(data.html);
+
+                html.hide();
+
+                $('.results').append(html);
+
+                html.fadeIn();
+            }
+
+            $('.results').data('processing', false);
+        }, 'html');
+    }
+}
+
+$(document).ready(function() {
     function refreshIndicator() {
         $('#indicator').html('<img src="/images/icone/loading.gif">');
 
@@ -44,3 +69,4 @@ $(document).ready(function() {
         refreshIndicator();
     });
 });
+    

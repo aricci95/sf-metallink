@@ -9,7 +9,10 @@ parameters:
 
     profiler:
         collect: true
+
     locale: 'en'
+
+    page_size: 1
 
 fos_user:
     service:

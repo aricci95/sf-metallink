@@ -1,17 +1,17 @@
 $(document).ready(function() {
-    refresh();
+    window.search(getParams());
 
     $("#search_form").on('change', 'select', function(e) {
         e.preventDefault();
-        refresh();
+        window.search(getParams());
     });
 
     $("#search_form").on('click', '#submit_button', function(e) {
         e.preventDefault();
-        refresh();
+        window.search(getParams());
     });
 
-    function refresh() {
+    function getParams() {
         var params = {};
 
         if ($('#user_search_username').val()) {
@@ -22,18 +22,12 @@ $(document).ready(function() {
           params['gender'] = $('#user_search_gender').val();
         }
 
-        $.get('user/search', params,
-            function(data) {
-               tmp = $(data);
-               loading = $(".loading");
-               tmp.hide();
-               $(".results").html(tmp);
-               loading.data('offset', 0);
-               loading.data('end', 'false');
-               loading.data('show', 'false');
-               tmp.fadeIn();
-            },
-            'html'
-        );
+        return params;
     }
+
+    $(document).scroll(function() {
+        $(window).scroll(function () {
+            window.search(getParams());
+        });
+    });
 });

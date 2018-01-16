@@ -5,10 +5,6 @@ controllers:
     resource: '../src/Controller/'
     type:     annotation
 
-user_list:
-    path: /
-    controller: App\Controller\UserController::index
-
 profil_edited:
     path: /profile/
     defaults:

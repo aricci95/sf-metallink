@@ -19,7 +19,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getReference(User::class, $id);
     }
 
-    public function search(array $params = [], array $blacklist = [])
+    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
         $qb = $this->createQueryBuilder('user');
 
@@ -36,7 +36,31 @@ class UserRepository extends ServiceEntityRepository
         }
 
         return $qb
+            ->setFirstResult($page * $pageSize - $pageSize)
+            ->setMaxResults($pageSize)
             ->getQuery()
             ->getResult();
+    }
+
+    public function searchCount(array $params = [], array $blacklist = [])
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        if ($blacklist) {
+            $qb
+                ->andWhere('user.id NOT IN ( :blacklist )')
+                ->setParameter('blacklist', $blacklist);
+        }
+        
+        foreach ($params as $key => $value) {
+            $qb
+                ->andWhere('user.' . $key . ' = :' . $key)
+                ->setParameter(':' . $key, $value);
+        }
+
+        return (int) $qb
+            ->select('COUNT(1)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

@@ -9,10 +9,13 @@ use App\Form\Search\UserSearchType;
 use App\Entity\User;
 use App\Entity\View;
 use App\Repository\UserRepository;
+use App\Repository\ViewRepository;
 use App\Service\LinkService;
 use App\Service\IndicatorService;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class UserController extends AbstractController
+class UserController extends Controller
 {
     /**
      * @Route("/user/list", name="user_list")
@@ -27,10 +30,10 @@ class UserController extends AbstractController
     /**
      * @Route("/user/show/{id}", name="user_show")
      */
-    public function show(User $user, IndicatorService $indicatorService)
+    public function show(User $user, IndicatorService $indicatorService, ViewRepository $viewRepository)
     {
         if ($this->getUser() && $user != $this->getUser()) {
-            $view = $this->getDoctrine()->getManager()->getRepository(View::class)->findOneBy([
+            $view = $viewRepository->findOneBy([
                 'user'   => $this->getUser(),
                 'target' => $user,
             ]);
@@ -58,16 +61,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/search", name="user_search")
+     * @Route("/user/search/{page}", name="user_search", defaults={"page"=1})
      */
-    public function search(Request $request, LinkService $linkService)
+    public function search(Request $request, LinkService $linkService, UserRepository $userRepository, $page = 1)
     {
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->search($request->query->all(), $linkService->getBlackList());
+        $count = $userRepository->searchCount($request->query->all(), $linkService->getBlackList());
 
-        return $this->render('user/search.html.twig', [
-            'users' => $users,
+        $users = [];
+
+        $pageSize = $this->getParameter('page_size');
+
+        if ($count) {
+            $users = $userRepository->search($request->query->all(), $linkService->getBlackList(), $page, $pageSize);
+        }
+
+        return new JsonResponse([
+            'html'     => $this->renderView('user/search.html.twig', ['users' => $users]),
+            'nextPage' => ($count > $page * $pageSize) ? $page + 1 : false,
         ]);
     }
 }
