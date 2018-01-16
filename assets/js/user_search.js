@@ -1,8 +1,7 @@
-$(document).ready(function() {
-    window.search(getParams());
+window.searchable = true;
 
-    $("#search_form").on('change', 'select', function(e) {
-        e.preventDefault();
+$(document).ready(function() {
+    $("#search_form").on('change keypress', 'input, select', function(e) {
         window.search(getParams());
     });
 
@@ -10,24 +9,18 @@ $(document).ready(function() {
         e.preventDefault();
         window.search(getParams());
     });
+});
 
-    function getParams() {
-        var params = {};
+window.getParams = function getParams() {
+    var params = {};
 
-        if ($('#user_search_username').val()) {
-          params['username'] = $('#user_search_username').val();
-        }
-
-        if ($('#user_search_gender').val()) {
-          params['gender'] = $('#user_search_gender').val();
-        }
-
-        return params;
+    if ($('#user_search_username').val()) {
+      params['username'] = $('#user_search_username').val();
     }
 
-    $(document).scroll(function() {
-        $(window).scroll(function () {
-            window.search(getParams());
-        });
-    });
-});
+    if ($('#user_search_gender').val()) {
+      params['gender'] = $('#user_search_gender').val();
+    }
+
+    return params;
+}

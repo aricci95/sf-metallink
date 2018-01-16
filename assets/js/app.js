@@ -3,6 +3,8 @@ const $ = require('jquery');
 
 var nextPage = 1;
 
+window.searchable = false;
+
 window.search = function search(params) {
     if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage) {
         $('.results').data('processing', true);
@@ -68,5 +70,14 @@ $(document).ready(function() {
 
         refreshIndicator();
     });
+
+    if (window.searchable) {
+        window.search(getParams());
+
+        $(document).scroll(function() {
+            $(window).scroll(function () {
+                window.search(window.getParams());
+            });
+        });
+    }
 });
-    
