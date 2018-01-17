@@ -41,7 +41,7 @@ class LinkService
         $currentUser = $this->tokenStorage->getUser();
 
         if (!($currentUser instanceof User)) {
-            return (new Link())->setTarget($linkedUser);
+            return [];
         }
 
         if (is_null($this->links)) {

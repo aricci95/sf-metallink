@@ -5,11 +5,18 @@ controllers:
     resource: '../src/Controller/'
     type:     annotation
 
-profil_edited:
+profile_edited:
     path: /profile/
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
         route: fos_user_profile_edit
+        permanent: true
+
+user_authentified:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: user_list
         permanent: true
 
 fos_user:
