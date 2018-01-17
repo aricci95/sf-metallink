@@ -33,10 +33,10 @@ class MessageController extends SearchController
 
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $message = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
 
             $em->persist($message);
             $em->flush();
@@ -46,11 +46,21 @@ class MessageController extends SearchController
             return $this->redirectToRoute('message_show', ['id' => $author->getId()]);
         }
 
-        return $this->render('message/show.html.twig', [
+        $render = $this->render('message/show.html.twig', [
             'messages' => $messages,
             'author'   => $author,
             'form'     => $form->createView(),
         ]);
+
+        foreach ($messages as $message) {
+            $message->setStatus(Message::STATUS_READ);
+
+            $em->persist($message);
+        }
+
+        $em->flush();
+
+        return $render;
     }
 
     /**
