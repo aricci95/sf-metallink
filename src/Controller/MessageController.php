@@ -58,6 +58,8 @@ class MessageController extends SearchController
      */
     public function search(Request $request, $page = 1)
     {
-        return parent::doSearch(Message::class, $request->query->all(), $page);
+        $params = $request->query->all();
+
+        return parent::doSearch(Message::class, $params, $page);
     }
 }

@@ -17,7 +17,7 @@ class MessageRepository extends ServiceEntityRepository
     public function getUsersMessages(User $user, User $target): array
     {
         return $this->createQueryBuilder('message')
-            ->where('message.user = :user OR message.user = :target')
+            ->where('( message.user = :user AND message.target = :target OR message.user = :target AND message.target = :user )')
             ->andWhere('message.status != :status_deleted')
             ->setParameters([
                 'user'           => $user,
@@ -47,24 +47,33 @@ class MessageRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
+    public function search(User $user, array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
-        $qb = $this->createQueryBuilder('message');
-
-        if ($blacklist) {
-            $qb
-                ->andWhere('IDENTITY(message.user) NOT IN ( :blacklist )')
-                ->setParameter('blacklist', $blacklist);
-        }
-
-        return $qb
-            ->setFirstResult($page * $pageSize - $pageSize)
-            ->setMaxResults($pageSize)
+        $messages = $this->createQueryBuilder('message')
+            ->where('message.user = :user OR message.target = :user')
+            ->andWhere('message.status != :status_deleted')
+            ->setParameters([
+                'user'           => $user,
+                'status_deleted' => Message::STATUS_DELETED,
+            ])
+            ->orderBy('message.createdAt', 'DESC')
+            ->groupBy('message.user, message.target')
             ->getQuery()
             ->getResult();
+
+        $results = [];
+        foreach ($messages as $message) {
+            if ($message->getUser() != $user) {
+                $results[$message->getUser()->getId()] = $message;
+            } else {
+                $results[$message->getTarget()->getId()] = $message;
+            }
+        }
+
+        return $results;
     }
 
-    public function searchCount(array $params = [], array $blacklist = [])
+    public function searchCount(User $user, array $params = [], array $blacklist = [])
     {
         $qb = $this->createQueryBuilder('message');
 

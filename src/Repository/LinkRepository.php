@@ -80,40 +80,30 @@ class LinkRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
+    public function search(User $user, array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
-        $qb = $this->createQueryBuilder('link')
+        $blacklist[] = $user;
+
+        return $this->createQueryBuilder('link')
             ->where('link.status = :status')
-            ->setParameter('status', $params['status']);
-
-        if ($blacklist) {
-            $qb
-                ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
-                ->setParameter('blacklist', $blacklist);
-        }
-
-
-        return $qb
-            
+            ->setParameter('status', $params['status'])
+            ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
+            ->setParameter('blacklist', $blacklist)
             ->setFirstResult($page * $pageSize - $pageSize)
             ->setMaxResults($pageSize)
             ->getQuery()
             ->getResult();
     }
 
-    public function searchCount(array $params = [], array $blacklist = [])
+    public function searchCount(User $user, array $params = [], array $blacklist = [])
     {
-        $qb = $this->createQueryBuilder('link')
+        $blacklist[] = $user;
+
+        return (int) $this->createQueryBuilder('link')
             ->where('link.status = :status')
-            ->setParameter('status', $params['status']);
-
-        if ($blacklist) {
-            $qb
-                ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
-                ->setParameter('blacklist', $blacklist);
-        }
-
-        return (int) $qb
+            ->setParameter('status', $params['status'])
+            ->andWhere('IDENTITY(link.user) NOT IN ( :blacklist )')
+            ->setParameter('blacklist', $blacklist)
             ->select('COUNT(1)')
             ->getQuery()
             ->getSingleScalarResult();

@@ -5,10 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\LinkService;
+use App\Entity\User;
 
 abstract class SearchController extends Controller
 {
-    private $linkService;
+    protected $linkService;
 
     public function __construct(LinkService $linkService)
     {
@@ -23,14 +24,14 @@ abstract class SearchController extends Controller
 
         $blacklist = $this->linkService->getBlackList();
 
-        $count = $repository->searchCount($params, $blacklist);
+        $count = $repository->searchCount($this->getUser(), $params, $blacklist);
 
         $results = [];
 
         $pageSize = $this->getParameter('page_size');
 
         if ($count) {
-            $results = $repository->search($params, $blacklist, $page, $pageSize);
+            $results = $repository->search($this->getUser(), $params, $blacklist, $page, $pageSize);
         }
 
         return new JsonResponse([

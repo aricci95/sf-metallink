@@ -19,9 +19,11 @@ class UserRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getReference(User::class, $id);
     }
 
-    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
+    public function search(User $user, array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
         $qb = $this->createQueryBuilder('user');
+
+        $blacklist[] = $user;
 
         if ($blacklist) {
             $qb
@@ -42,9 +44,11 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function searchCount(array $params = [], array $blacklist = [])
+    public function searchCount(User $user, array $params = [], array $blacklist = [])
     {
         $qb = $this->createQueryBuilder('user');
+
+        $blacklist[] = $user;
 
         if ($blacklist) {
             $qb

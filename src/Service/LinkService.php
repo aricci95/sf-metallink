@@ -66,7 +66,7 @@ class LinkService
 
             $this->links = unserialize($this->cache->get($cacheKey));
         } else {
-            $this->logger->info('No cached indicators for user ' . $user->getId());
+            $this->logger->info('No cached links for user ' . $user->getId());
 
             foreach ($this->linkRepository->getLinks($user) as $link) {
                 $this->links[$link->getLinkedUser($user)->getId()] = [
@@ -91,7 +91,7 @@ class LinkService
         $this->cache->delete(LinkRepository::CACHE_KEY . $link->getUser()->getId());
         $this->cache->delete(LinkRepository::CACHE_KEY . $link->getTarget()->getId());
 
-        $this->logger->info('Flushing cached indicators for users ' . $link->getUser()->getId() . ' and ' . $link->getTarget()->getId());
+        $this->logger->info('Flushing cached links for users ' . $link->getUser()->getId() . ' and ' . $link->getTarget()->getId());
 
         // Indicators
         $this->cache->delete(IndicatorService::CACHE_KEY . $link->getUser()->getId());

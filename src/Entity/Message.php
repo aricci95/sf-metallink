@@ -64,6 +64,15 @@ class Message
         $this->status    = self::STATUS_NEW;
     }
 
+    public function getOtherUser(User $user)
+    {
+        if ($this->user != $user) {
+            return $this->user;
+        }
+
+        return $this->target;
+    }
+
     public function getDays()
     {
         return (new \DateTime())->diff($this->createdAt)->days;

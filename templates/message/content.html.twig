@@ -3,9 +3,7 @@
         <table>
             <tr>
                 <td style="vertical-align: top;">
-                    <a href="{{ path('user_show', {'id' : message.user.id }) }}">
-                        <div class="smallPortrait" style="height: 120px;float:left;background-image:url({{ message.user.pictureUrl }});"></div>
-                    </a>
+                    {% include 'user/thumbnail.html.twig' with {'user' : message.user } %}
                 </td>
                 <td style="width: 672px;vertical-align: top;">
                     Il y a {{ message.days }} jours
