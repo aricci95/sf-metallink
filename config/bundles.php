@@ -13,4 +13,5 @@ return [
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
+    CoreSphere\ConsoleBundle\CoreSphereConsoleBundle::class => ['all' => true],
 ];
