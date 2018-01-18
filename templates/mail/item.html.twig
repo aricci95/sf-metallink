@@ -1,0 +1,24 @@
+{% if not mail.isDeleted %}
+    <tr class="{% if mail.isNew %}trNewMail{% else %}trReadMail{% endif %}">
+        <td align="center" width="100">
+            {% include 'user/thumbnail.html.twig' with {'user' : mail.otherUser(app.user) } %}
+        </td>
+        <td>
+            <a href="{{ path('mail_show', {'id' : mail.otherUser(app.user).id}) }}">
+                <img src="/images/icone/{% if mail.isRead %}maillu.png{% else %}mail.png{% endif %}" />
+            </a>
+        </td>
+        <td align="left" style="overflow:hidden;">
+            <div style="width:450px;">
+                <a class="blackLink" href="{{ path('mail_show',  {'id' : mail.otherUser(app.user).id}) }}">
+                    {{ mail.content }}
+                </a>
+            </div>
+        </td>
+        <td>
+            <a href="{{ path('mail_show',  {'id' : mail.otherUser(app.user).id}) }}">
+                il y a {{ mail.days }} jours
+            </a>
+        </td>
+    </tr>
+{% endif %}

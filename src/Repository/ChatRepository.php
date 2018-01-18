@@ -2,43 +2,43 @@
 
 namespace App\Repository;
 
-use App\Entity\Message;
+use App\Entity\Chat;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class MessageRepository extends ServiceEntityRepository
+class ChatRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Message::class);
+        parent::__construct($registry, Chat::class);
     }
 
-    public function getUsersMessages(User $user, User $target): array
+    public function getUsersChats(User $user, User $target): array
     {
-        return $this->createQueryBuilder('message')
-            ->where('( message.user = :user AND message.target = :target OR message.user = :target AND message.target = :user )')
-            ->andWhere('message.status != :status_deleted')
+        return $this->createQueryBuilder('chat')
+            ->where('( chat.user = :user AND chat.target = :target OR chat.user = :target AND chat.target = :user )')
+            ->andWhere('chat.status != :status_deleted')
             ->setParameters([
                 'user'           => $user,
                 'target'         => $target,
-                'status_deleted' => Message::STATUS_DELETED,
+                'status_deleted' => Chat::STATUS_DELETED,
             ])
-            ->orderBy('message.createdAt', 'DESC')
+            ->orderBy('chat.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
     public function countByUser(User $user, $status = null)
     {
-        $qb = $this->createQueryBuilder('message')
+        $qb = $this->createQueryBuilder('chat')
             ->select('COUNT(1)')
-            ->where('message.user = :target')
+            ->where('chat.user = :target')
             ->setParameter('target', $user);
 
         if ($status) {
             $qb
-                ->andWhere('message.status = :status')
+                ->andWhere('chat.status = :status')
                 ->setParameter('status', $status);
         }
 
@@ -49,24 +49,24 @@ class MessageRepository extends ServiceEntityRepository
 
     public function search(User $user, array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
-        $messages = $this->createQueryBuilder('message')
-            ->where('message.user = :user OR message.target = :user')
-            ->andWhere('message.status != :status_deleted')
+        $chats = $this->createQueryBuilder('chat')
+            ->where('chat.user = :user OR chat.target = :user')
+            ->andWhere('chat.status != :status_deleted')
             ->setParameters([
                 'user'           => $user,
-                'status_deleted' => Message::STATUS_DELETED,
+                'status_deleted' => Chat::STATUS_DELETED,
             ])
-            ->orderBy('message.createdAt', 'DESC')
-            ->groupBy('message.user, message.target')
+            ->orderBy('chat.createdAt', 'DESC')
+            ->groupBy('chat.user, chat.target')
             ->getQuery()
             ->getResult();
 
         $results = [];
-        foreach ($messages as $message) {
-            if ($message->getUser() != $user) {
-                $results[$message->getUser()->getId()] = $message;
+        foreach ($chats as $chat) {
+            if ($chat->getUser() != $user) {
+                $results[$chat->getUser()->getId()] = $chat;
             } else {
-                $results[$message->getTarget()->getId()] = $message;
+                $results[$chat->getTarget()->getId()] = $chat;
             }
         }
 
@@ -75,11 +75,11 @@ class MessageRepository extends ServiceEntityRepository
 
     public function searchCount(User $user, array $params = [], array $blacklist = [])
     {
-        $qb = $this->createQueryBuilder('message');
+        $qb = $this->createQueryBuilder('chat');
 
         if ($blacklist) {
             $qb
-                ->andWhere('IDENTITY(message.user) NOT IN ( :blacklist )')
+                ->andWhere('IDENTITY(chat.user) NOT IN ( :blacklist )')
                 ->setParameter('blacklist', $blacklist);
         }
 

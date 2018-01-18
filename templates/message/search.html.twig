@@ -1,7 +1,0 @@
-{% if results %}
-    {% for message in results %}
-        {% include 'message/item.html.twig' with {'message' : message } %}
-    {% endfor %}
-{% else %}
-    <div class="noresults">Aucun message.</div>
-{% endif %}

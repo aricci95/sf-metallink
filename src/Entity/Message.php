@@ -4,10 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
- * @ORM\Table(name="message")
- */
+/** @ORM\MappedSuperclass */
 class Message
 {
     const STATUS_NEW     = 1;
@@ -20,22 +17,6 @@ class Message
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messagesSent")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messagesReceived")
-     * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
-     */
-    private $target;
 
     /**
      * @var \DateTime

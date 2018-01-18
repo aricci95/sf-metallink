@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="title topShadow" style="font-size: 20px;">{{ author.username|capitalize }}</div>
+    <div class="title topShadow" style="font-size: 20px;">{{ target.username|capitalize }}</div>
         {{ form_start(form) }}
             <div style="margin: 10px;">
                 {{ form_widget(form.user) }}
@@ -12,16 +12,16 @@
         <div style="margin-bottom: 10px;"></div>
 
         <table class="results" style="padding-right:2px;" cellspacing="0">
-            {% if messages %}
-                {% for message in messages %}
-                    {% include 'message/content.html.twig' with {'message' : message } %}
+            {% if mails %}
+                {% for mail in mails %}
+                    {% include 'mail/content.html.twig' with {'mail' : mail } %}
                 {% endfor %}
             {% else %}
-                Aucun message.
+                Aucun mail.
             {% endif %}
             <tr>
                 <td>
-                    <img class="loading" src="/images/loading.gif" data-end="false" style="display:none;" data-show="false" data-offset="0" data-href="message" data-option="" />
+                    <img class="loading" src="/images/loading.gif" data-end="false" style="display:none;" data-show="false" data-offset="0" data-href="mail" data-option="" />
                 </td>
             </tr>
         </table>

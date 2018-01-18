@@ -1,0 +1,7 @@
+{% if results %}
+    {% for chat in results %}
+        {% include 'chat/item.html.twig' with {'chat' : chat } %}
+    {% endfor %}
+{% else %}
+    <div class="noresults">Aucun message.</div>
+{% endif %}

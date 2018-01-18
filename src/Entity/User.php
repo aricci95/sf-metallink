@@ -118,18 +118,32 @@ class User extends BaseUser
     private $linksReceived;
     
     /**
-     * @var Link
+     * @var Mail
      *
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Mail", mappedBy="user")
      */
-    private $messagesSent;
+    private $mailsSent;
     
     /**
-     * @var Link
+     * @var Mail
      *
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="target")
+     * @ORM\OneToMany(targetEntity="Mail", mappedBy="target")
      */
-    private $messagesReceived;
+    private $mailsReceived;
+
+    /**
+     * @var Chat
+     *
+     * @ORM\OneToMany(targetEntity="Chat", mappedBy="user")
+     */
+    private $chatsSent;
+    
+    /**
+     * @var Chat
+     *
+     * @ORM\OneToMany(targetEntity="Chat", mappedBy="target")
+     */
+    private $chatsReceived;
 
     /**
      * @var int
@@ -138,11 +152,13 @@ class User extends BaseUser
 
     public function __construct()
     {
-        $this->linksSent        = new ArrayCollection();
-        $this->linksReceived    = new ArrayCollection();
-        $this->messagesSent     = new ArrayCollection();
-        $this->messagesReceived = new ArrayCollection();
-        $this->pictures         = new ArrayCollection();
+        $this->linksSent     = new ArrayCollection();
+        $this->linksReceived = new ArrayCollection();
+        $this->mailsSent     = new ArrayCollection();
+        $this->mailsReceived = new ArrayCollection();
+        $this->chatsSent     = new ArrayCollection();
+        $this->chatsReceived = new ArrayCollection();
+        $this->pictures      = new ArrayCollection();
     }
 
     public function getDefaultPicture()

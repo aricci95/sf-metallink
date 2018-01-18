@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Entity\Message;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Repository\LinkRepository;
-use App\Repository\MessageRepository;
+use App\Repository\MailRepository;
 use App\Repository\ViewRepository;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Psr\Log\LoggerInterface;
@@ -17,12 +17,12 @@ class IndicatorService
     const CACHE_KEY   = 'indicator_';
 
     const TYPE_LINK    = 'link';
-    const TYPE_MESSAGE = 'message';
+    const TYPE_MAIL = 'message';
     const TYPE_VIEW    = 'view';
 
     private $linkRepository;
 
-    private $messageRepository;
+    private $mailRepository;
 
     private $viewRepository;
 
@@ -37,14 +37,14 @@ class IndicatorService
     public function __construct(
         TokenStorageInterface $tokenStorage,
         LinkRepository $linkRepository,
-        MessageRepository $messageRepository,
+        MailRepository $mailRepository,
         ViewRepository $viewRepository,
         LoggerInterface $logger
     ) {
         $this->cache             = new FilesystemCache('metallink', 3600);
         $this->tokenStorage      = $tokenStorage->getToken();
         $this->linkRepository    = $linkRepository;
-        $this->messageRepository = $messageRepository;
+        $this->mailRepository = $mailRepository;
         $this->viewRepository    = $viewRepository;
         $this->logger            = $logger;
     }
@@ -59,8 +59,8 @@ class IndicatorService
                 self::TYPE_LINK . '_accepted'    => 0,
                 self::TYPE_LINK . '_blacklisted' => 0,
 
-                self::TYPE_MESSAGE               => 0,
-                self::TYPE_VIEW                  => 0,
+                self::TYPE_MAIL => 0,
+                self::TYPE_VIEW => 0,
             ];
         }
 
@@ -88,7 +88,7 @@ class IndicatorService
                 self::TYPE_LINK . '_accepted'    => $this->linkRepository->countByUser($user, Link::STATUS_ACCEPTED),
                 self::TYPE_LINK . '_blacklisted' => $this->linkRepository->countByUser($user, Link::STATUS_BLACKLISTED),
                 // Messages
-                self::TYPE_MESSAGE               => $this->messageRepository->countByUser($user, Message::STATUS_NEW),
+                self::TYPE_MAIL               => $this->mailRepository->countByUser($user, Message::STATUS_NEW),
                 // Views
                 self::TYPE_VIEW                  => $this->viewRepository->countByUser($user),
             ];

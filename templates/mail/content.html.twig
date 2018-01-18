@@ -1,0 +1,17 @@
+<tr class="{% if mail.user != app.user %}grey{% endif %}">
+    <td>
+        <table>
+            <tr>
+                <td style="vertical-align: top;">
+                    {% include 'user/thumbnail.html.twig' with {'user' : mail.user } %}
+                </td>
+                <td style="width: 672px;vertical-align: top;">
+                    Il y a {{ mail.days }} jours
+                    <span style="float:right;">{{ mail.status }}</span>
+                    <hr>
+                    {{ mail.content }}
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>

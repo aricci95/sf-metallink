@@ -20,7 +20,7 @@
                 <img src="/images/icone/link_sent.png" title="Demande en attente" />
             {% endif %}
         {% elseif link.isAccepted %}
-            <a href="javascript:void(0)" onclick="javascript:chatWith('<?php echo $this->user['user_login']; ?>')">
+            <a class="chatLink" href="{{ path('chat_show', {'id' : link.target.id }) }}">
                 <img src="/images/icone/chat.png"  title="Chatter" />
             </a>
             <a href="{{ path('message_show', {'id' : link.target.id }) }}">

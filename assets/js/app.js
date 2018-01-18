@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     refreshIndicator();
 
-    // LINK
+    // Link
     $(".site").on('click', '.link', function(e) {
         e.preventDefault();
 
@@ -71,6 +71,7 @@ $(document).ready(function() {
         refreshIndicator();
     });
 
+    // Search
     if (window.searchable) {
         window.search(getParams());
 
@@ -80,4 +81,13 @@ $(document).ready(function() {
             });
         });
     }
+
+    // Chat
+    $(".site").on('click', '.chatLink', function(e) {
+        e.preventDefault();
+
+        $.get($(e.target).closest('.chatLink').data('href'), {}, function (data) {
+            $('.chatDock').html(data);
+        });
+    });
 });

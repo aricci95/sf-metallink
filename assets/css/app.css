@@ -535,9 +535,15 @@ div.debug {
     background-image:url('/images/patch.jpg');
     border-style:dotted;
     display: inline-block;
-
-
     margin:2px;
     padding:3px;
     color:#E6E6E6;
+}
+
+.messengerDock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    height: 250px;
 }

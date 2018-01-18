@@ -1,0 +1,7 @@
+{% if results %}
+    {% for mail in results %}
+        {% include 'mail/item.html.twig' with {'mail' : mail } %}
+    {% endfor %}
+{% else %}
+    <div class="noresults">Aucun mail.</div>
+{% endif %}

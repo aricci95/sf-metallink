@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\User;
 
-class MessageType extends AbstractType
+class MailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

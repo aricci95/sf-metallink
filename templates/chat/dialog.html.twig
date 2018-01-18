@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    <table class="dialogBox">
+        <th>{{ user.username }}</th>
+        <td class="results"></td>
+        <td>
+            {{ form_widget(form.content) }}
+        </td>
+    </table>
+    {{ form_widget(form.user) }}
+    {{ form_widget(form.target) }}
+{{ form_start(form) }}
