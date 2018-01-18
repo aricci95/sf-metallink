@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "19efa7b762f3328463b5a1e5633e50e6",
-    "content-hash": "63aad3dce92fc1b55f2627ed1a02290c",
+    "hash": "3040a7ba885ca088f7d401c14a7ad6a5",
+    "content-hash": "cb23603da50eed26fc3d7e2ca15bdd70",
     "packages": [
         {
             "name": "coresphere/console-bundle",
@@ -1195,6 +1195,104 @@
             "time": "2018-01-03 07:26:02"
         },
         {
+            "name": "limenius/react-bundle",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Limenius/ReactBundle.git",
+                "reference": "371d0254819db58144ef6104c4bed93db60fd156"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Limenius/ReactBundle/zipball/371d0254819db58144ef6104c4bed93db60fd156",
+                "reference": "371d0254819db58144ef6104c4bed93db60fd156",
+                "shasum": ""
+            },
+            "require": {
+                "limenius/react-renderer": "^2.0.0",
+                "php": ">=5.5.0",
+                "symfony/config": "^2.7.0|^3.0.6|^4.0",
+                "symfony/dependency-injection": "^2.7.0|^3.0.6|^4.0",
+                "symfony/http-kernel": "^2.7.0|^3.0.6|^4.0"
+            },
+            "require-dev": {
+                "escapestudios/symfony2-coding-standard": "^2.9",
+                "squizlabs/php_codesniffer": "^2.5",
+                "wimg/php-compatibility": "^7.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Limenius\\ReactBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nacho",
+                    "email": "nacho@limenius.com"
+                }
+            ],
+            "description": "Client and Server-side react rendering in a Symfony Bundle",
+            "keywords": [
+                "isomorphic",
+                "react"
+            ],
+            "time": "2017-12-11 16:37:36"
+        },
+        {
+            "name": "limenius/react-renderer",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Limenius/ReactRenderer.git",
+                "reference": "8076e1f670e1bf476faafa4452d71cf55ef9547f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Limenius/ReactRenderer/zipball/8076e1f670e1bf476faafa4452d71cf55ef9547f",
+                "reference": "8076e1f670e1bf476faafa4452d71cf55ef9547f",
+                "shasum": ""
+            },
+            "require": {
+                "nacmartin/phpexecjs": "^2.0",
+                "php": ">=5.5.0",
+                "twig/twig": "^1.20|^2.0"
+            },
+            "require-dev": {
+                "escapestudios/symfony2-coding-standard": "^2.9",
+                "squizlabs/php_codesniffer": "^2.5",
+                "wimg/php-compatibility": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Limenius\\ReactRenderer\\": "src/Limenius/ReactRenderer"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nacho Martín",
+                    "email": "nacho@limenius.com"
+                }
+            ],
+            "description": "Client and Server-side React rendering",
+            "keywords": [
+                "isomorphic",
+                "react",
+                "reactjs",
+                "twig"
+            ],
+            "time": "2017-12-11 16:34:01"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -1271,6 +1369,42 @@
                 "psr-3"
             ],
             "time": "2017-06-19 01:22:40"
+        },
+        {
+            "name": "nacmartin/phpexecjs",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nacmartin/phpexecjs.git",
+                "reference": "abb8566e4e5d079e30312e72b33bcf01e09990d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nacmartin/phpexecjs/zipball/abb8566e4e5d079e30312e72b33bcf01e09990d9",
+                "reference": "abb8566e4e5d079e30312e72b33bcf01e09990d9",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/process": "~2.3|~3.0|^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Nacmartin\\PhpExecJs": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nacho",
+                    "email": "nacho@limenius.com"
+                }
+            ],
+            "description": "Run JavaScript code from PHP",
+            "time": "2017-11-22 20:17:42"
         },
         {
             "name": "paragonie/random_compat",
@@ -2306,16 +2440,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.62",
+            "version": "v1.0.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "c233143ef550f6acbe033fe63d15dad15ca8566a"
+                "reference": "c409fe47e94c3c3c255e94356718ff15417afb0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/c233143ef550f6acbe033fe63d15dad15ca8566a",
-                "reference": "c233143ef550f6acbe033fe63d15dad15ca8566a",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/c409fe47e94c3c3c255e94356718ff15417afb0e",
+                "reference": "c409fe47e94c3c3c255e94356718ff15417afb0e",
                 "shasum": ""
             },
             "require": {
@@ -2348,7 +2482,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-01-17 07:28:24"
+            "time": "2018-01-17 19:45:47"
         },
         {
             "name": "symfony/form",

@@ -14,4 +14,5 @@ return [
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     CoreSphere\ConsoleBundle\CoreSphereConsoleBundle::class => ['all' => true],
+    Limenius\ReactBundle\LimeniusReactBundle::class => ['all' => true],
 ];

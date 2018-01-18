@@ -27,7 +27,8 @@
         "symfony/swiftmailer-bundle": "*",
         "liip/imagine-bundle": "*",
         "symfony/yaml": "^4.0",
-        "coresphere/console-bundle": "dev-master"
+        "coresphere/console-bundle": "dev-master",
+        "limenius/react-bundle": "*"
     },
     "require-dev": {
         "symfony/dotenv": "^4.0",

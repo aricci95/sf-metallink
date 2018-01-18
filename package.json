@@ -1,8 +1,15 @@
 {
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.17.1"
+    "@symfony/webpack-encore": "^0.17.1",
+    "babel-preset-react": "^6.24.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "dependencies": {
-    "jquery": "^3.2.1"
+    "babel-runtime": "^6.26.0",
+    "jquery": "^3.2.1",
+    "js-yaml": "^3.10.0",
+    "react-on-rails": "^10.0.2"
   }
 }
