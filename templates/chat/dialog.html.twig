@@ -1,10 +1,19 @@
 {{ form_start(form) }}
     <table class="dialogBox">
-        <th>{{ target.username }}</th>
-        <td class="results"></td>
-        <td>
-            {{ form_widget(form.content) }}
-        </td>
+        <tr>
+            <th class="dialogHeader">
+                <span>{{ target.username }}</span>
+                <span style="float:right;padding-right:5px;">X</span>
+            </th>
+        </tr>
+        <tr>
+            <td class="dialogContent results"></td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_widget(form.content) }}
+            </td>
+        </tr>
     </table>
     {{ form_widget(form.user) }}
     {{ form_widget(form.target) }}

@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\User;
 
 class ChatType extends AbstractType
@@ -13,7 +14,11 @@ class ChatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content')
+            ->add('content', TextType::class, [
+                'attr' => [
+                    'class' => 'dialogInput',
+                ],
+            ])
             ->add('user', EntityType::class, [
                 'label' => false,
                 'attr' => [
