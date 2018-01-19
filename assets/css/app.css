@@ -545,9 +545,17 @@ div.debug {
 }
 
 .dialogHeader {
-    color: #dddddd;
+    color: white;
     background-color: rgb(38, 47, 42);
     text-align: left;
+    padding: 5px;
+}
+
+
+.dialogHeaderNew {
+    background-color: rgb(162, 204, 57);
+    text-align: left;
+    color:white;
     padding: 5px;
 }
 
@@ -602,3 +610,4 @@ div.debug {
     float:right;
     padding-right:5px;
 }
+

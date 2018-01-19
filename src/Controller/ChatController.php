@@ -34,8 +34,11 @@ class ChatController extends SearchController
             return new JsonResponse(200);
         }
 
+        $results = array_reverse($chatRepository->getUsersChats($this->getUser(), $target));
+
         return $this->render('chat/dialog.html.twig', [
-            'results' => array_reverse($chatRepository->getUsersChats($this->getUser(), $target)),
+            'isNew'   => $results ? $results[0]->isNew() : false,
+            'results' => $results,
             'form'    => $form->createView(),
             'target'  => $target,
         ]);

@@ -1,5 +1,5 @@
 <div class="dialogBox" data-id="{{ target.id }}">
-    <div class="dialogHeader">
+    <div class="dialogHeader{% if isNew %}New{% endif %}">
         <span>{{ target.username }}</span>
         <span class="dialogClose"><a href="#">X</a></span>
     </div>
