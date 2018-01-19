@@ -1,20 +1,16 @@
-{{ form_start(form) }}
-    <table class="dialogBox">
-        <tr>
-            <th class="dialogHeader">
-                <span>{{ target.username }}</span>
-                <span style="float:right;padding-right:5px;">X</span>
-            </th>
-        </tr>
-        <tr>
-            <td class="dialogContent results"></td>
-        </tr>
-        <tr>
-            <td>
-                {{ form_widget(form.content) }}
-            </td>
-        </tr>
-    </table>
-    {{ form_widget(form.user) }}
-    {{ form_widget(form.target) }}
-{{ form_start(form) }}
+<div class="dialogBox">
+    <div class="dialogHeader">
+        <span>{{ target.username }}</span>
+        <span style="float:right;padding-right:5px;">X</span>
+    </div>
+    {{ form_start(form) }}
+        <div class="dialogContent results">
+            {% include 'chat/search.html.twig' with results %}
+        </div>
+        <div class="dialogInput">
+            {{ form_widget(form.content) }}
+        </div>
+        {{ form_widget(form.user) }}
+        {{ form_widget(form.target) }}
+    {{ form_start(form) }}
+</div>

@@ -14,7 +14,7 @@ class ChatController extends SearchController
     /**
      * @Route("/chat/dialog/{id}", name="chat_dialog")
      */
-    public function dialog(Request $request, User $target)
+    public function dialog(Request $request, User $target, ChatRepository $chatRepository)
     {
         $form = $this->createForm(ChatType::class, new Chat(), [
             'user'   => $this->getUser(),
@@ -35,8 +35,9 @@ class ChatController extends SearchController
         }
 
         return $this->render('chat/dialog.html.twig', [
-            'form'   => $form->createView(),
-            'target' => $target,
+            'results' => array_reverse($chatRepository->getUsersChats($this->getUser(), $target)),
+            'form'    => $form->createView(),
+            'target'  => $target,
         ]);
     }
 

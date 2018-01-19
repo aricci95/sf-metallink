@@ -27,7 +27,7 @@ body {
     position: relative;
     font-size:16px;
     color:rgb(84, 65, 70);
-    font-family: Calibri;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     background-repeat:no-repeat;
     background-image:url('/images/structure/emp_background.jpg');
     background-attachment: fixed;
@@ -132,40 +132,10 @@ a:link {color: #808080;text-decoration: none ;}
     text-align:left;
 }
 
-.annonce {
-    display: inline-block;
-    width:800px;
-    height:100px;
-    text-align: left;
-}
-
 .form {
     padding-top: 19px;
     font-size: 16px;
     height: 60px;
-    background-color: rgb(29, 39, 35);
-    color: rgb(162, 204, 57);
-}
-
-.heading {
-    white-space:nowrap;
-    overflow: hidden;
-    font-size: 18px;
-    padding: 20px;
-    padding-top: 13px;
-    height: 16px;
-    background-color: rgb(29, 39, 35);
-    color: rgb(162, 204, 57);
-}
-
-.title {
-    white-space:nowrap;
-    overflow: hidden;
-    font-size: 18px;
-    padding: 20px;
-    padding-top: 13px;
-    height: 16px;
-    width:765px;
     background-color: rgb(29, 39, 35);
     color: rgb(162, 204, 57);
 }
@@ -215,9 +185,9 @@ a:link {color: #808080;text-decoration: none ;}
 .footer {
     font-size: 13px;
     color: #CECECE;
-    background-color: rgb(29, 39, 35);
+    background-color: rgba(29, 39, 35, 0.91);
     height: 30px;
-    position: absolute;
+    position: fixed;
     padding:10px;
     right: 0;
     bottom: 0;
@@ -317,6 +287,7 @@ h4 {
     text-align:center;
     margin-left: auto;
     margin-right: auto;
+    overflow-y: scroll;
 }
 
 .imgSousPortait {
@@ -558,31 +529,66 @@ div.debug {
 }
 
 .chatDock {
-    background-color: white;
-    position: absolute;
-    bottom:0;
+    background-color: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 50px;
 }
 
 .dialogBox {
     border: 2px grey solid;
+    background-color: white;
+    height: 300px;
+    width: 268px;
 }
 
 .dialogHeader {
     color: #dddddd;
     background-color: rgb(38, 47, 42);
     text-align: left;
-    padding-left: 5px;
-    height: 27px;
+    padding: 5px;
 }
 
 .dialogInput {
-    padding:10px;
-    width:91%;
-    height:100%;
+    padding: 1px;
+    width:260px;
     background-color: rgba(36, 36, 36, 0.1);
 }
 
 .dialogContent {
-    height: 300px;
     width: 268px;
+    height: 235px;
+    padding: 5px;
+}
+
+.dialogMessageContainerAuthor {
+    text-align: right;
+    width: 97%;
+}
+
+.dialogMessage {
+    display: inline-block;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 6px;
+    margin: 4px;
+}
+
+.dialogAuthor {
+    background-color: rgb(162, 204, 57);
+    border-bottom-right-radius: 0px;
+    color:white;
+    margin-left: 22px;
+    margin-right:0;
+}
+
+.dialogTarget {
+    border-bottom-left-radius: 0px;
+    background-color: #f1f0f0;
+    color:black;
+    margin-right: 22px;
+    margin-left:0;
 }

@@ -1,1 +1,3 @@
-{{ message.content }}
+<div class="{% if app.user == chat.user %}dialogMessageContainerAuthor{% endif %}">
+    <div class="dialogMessage {% if app.user == chat.user %}dialogAuthor{% else %}dialogTarget{% endif %}">{{ chat.content }}</div>
+</div>

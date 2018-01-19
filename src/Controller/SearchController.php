@@ -37,7 +37,7 @@ abstract class SearchController extends Controller
         /*
         for ($i=0; $i<=250; $i++) {
             $results[] = $results[0];
-        }*/
+        } */
 
         return new JsonResponse([
             'html'     => $this->renderView($entityName . '/search.html.twig', ['results' => $results]),
