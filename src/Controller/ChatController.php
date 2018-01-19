@@ -36,8 +36,18 @@ class ChatController extends SearchController
 
         $results = array_reverse($chatRepository->getUsersChats($this->getUser(), $target));
 
+        $isNew = $results ? $results[0]->isNew() : false;
+
+        foreach ($results as $chat) {
+            $chat->setStatus(Chat::STATUS_READ);
+
+            $em->persist($chat);
+        }
+
+        $em->flush();
+
         return $this->render('chat/dialog.html.twig', [
-            'isNew'   => $results ? $results[0]->isNew() : false,
+            'isNew'   => $isNew,
             'results' => $results,
             'form'    => $form->createView(),
             'target'  => $target,

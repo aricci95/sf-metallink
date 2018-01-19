@@ -97,6 +97,6 @@ $(document).ready(function() {
 
     $(".site").on('click', '.dialogClose a', function(e) {
         e.preventDefault();
-        $(e.target).closest('.dialogBox').hide();
+        $(e.target).closest('.dialogBox').remove();
     });
 });
