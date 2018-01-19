@@ -35,7 +35,8 @@ class ChatController extends SearchController
         }
 
         return $this->render('chat/dialog.html.twig', [
-            'form' => $form,
+            'form'   => $form->createView(),
+            'target' => $target,
         ]);
     }
 

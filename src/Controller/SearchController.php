@@ -33,6 +33,11 @@ abstract class SearchController extends Controller
         if ($count) {
             $results = $repository->search($this->getUser(), $params, $blacklist, $page, $pageSize);
         }
+        
+        /*
+        for ($i=0; $i<=250; $i++) {
+            $results[] = $results[0];
+        }*/
 
         return new JsonResponse([
             'html'     => $this->renderView($entityName . '/search.html.twig', ['results' => $results]),

@@ -18,7 +18,13 @@ textarea {
     background-color:#D8D8D8;
 }
 
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
 body {
+    position: relative;
     font-size:16px;
     color:rgb(84, 65, 70);
     font-family: Calibri;
@@ -30,6 +36,13 @@ body {
     margin: 0; /* pour éviter les marges */
     margin-right:auto;
     margin-left:auto;
+    min-height: 100%;
+    padding-bottom: 50px;
+}
+
+.content {
+    min-height: 460px;
+    overflow-y: scroll;
 }
 
 .modal {
@@ -200,13 +213,16 @@ a:link {color: #808080;text-decoration: none ;}
 }
 
 .footer {
-    margin-top:31px;
     font-size: 13px;
     color: #CECECE;
     background-color: rgb(29, 39, 35);
-    height: 33px;
-    padding: 12px;
+    height: 30px;
+    position: absolute;
+    padding:10px;
+    right: 0;
     bottom: 0;
+    left: 0;
+    text-align: center;
 }
 
 .menu {
@@ -298,7 +314,6 @@ h4 {
     border-right: 1px black solid;
     background-color:rgb(247, 247, 248);
     width:800px;
-    min-height: 500px;
     text-align:center;
     margin-left: auto;
     margin-right: auto;
@@ -535,15 +550,20 @@ div.debug {
     background-image:url('/images/patch.jpg');
     border-style:dotted;
     display: inline-block;
+
+
     margin:2px;
     padding:3px;
     color:#E6E6E6;
 }
 
-.messengerDock {
+.chatDock {
+    background-color: white;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom:0;
+}
+
+.dialogBox {
     width: 250px;
     height: 250px;
 }

@@ -53,10 +53,6 @@ class UserController extends SearchController
             $em->persist($view);
             $em->flush();
         }
-
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
     }
 
     /**
