@@ -86,8 +86,17 @@ $(document).ready(function() {
     $(".site").on('click', '.chatLink', function(e) {
         e.preventDefault();
 
-        $.get($(e.target).closest('.chatLink').data('href'), {}, function (data) {
-            $('.chatDock').html(data);
-        });
+        $('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]').show();
+
+        if (!$('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]').length) {
+            $.get($(e.target).closest('.chatLink').data('href'), {}, function (data) {
+                $('.chatDock').append(data);
+            });
+        }
+    });
+
+    $(".site").on('click', '.dialogClose a', function(e) {
+        e.preventDefault();
+        $(e.target).closest('.dialogBox').hide();
     });
 });

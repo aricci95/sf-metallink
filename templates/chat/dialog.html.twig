@@ -1,7 +1,7 @@
-<div class="dialogBox">
+<div class="dialogBox" data-id="{{ target.id }}">
     <div class="dialogHeader">
         <span>{{ target.username }}</span>
-        <span style="float:right;padding-right:5px;">X</span>
+        <span class="dialogClose"><a href="#">X</a></span>
     </div>
     {{ form_start(form) }}
         <div class="dialogContent results">

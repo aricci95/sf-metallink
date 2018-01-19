@@ -531,13 +531,13 @@ div.debug {
 .chatDock {
     background-color: none;
     position: fixed;
-    right: 0;
     bottom: 0;
     left: 0;
     margin-bottom: 50px;
 }
 
 .dialogBox {
+    float:left;
     border: 2px grey solid;
     background-color: white;
     height: 300px;
@@ -568,6 +568,11 @@ div.debug {
     width: 97%;
 }
 
+.dialogMessageContainerTarget {
+    text-align: left;
+    width: 97%;
+}
+
 .dialogMessage {
     display: inline-block;
     font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -591,4 +596,9 @@ div.debug {
     color:black;
     margin-right: 22px;
     margin-left:0;
+}
+
+.dialogClose {
+    float:right;
+    padding-right:5px;
 }

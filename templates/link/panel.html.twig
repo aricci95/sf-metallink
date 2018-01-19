@@ -20,7 +20,7 @@
                 <img src="/images/icone/link_sent.png" title="Demande en attente" />
             {% endif %}
         {% elseif link.isAccepted %}
-            <a class="chatLink" data-href="{{ path('chat_dialog', {'id' : link.target.id }) }}">
+            <a class="chatLink" target-id="{{ link.target.id }}" data-id="{{ link.target.id }}" data-href="{{ path('chat_dialog', {'id' : link.target.id }) }}">
                 <img src="/images/icone/chat.png"  title="Chatter" />
             </a>
             <a href="{{ path('mail_show', {'id' : link.target.id }) }}">
