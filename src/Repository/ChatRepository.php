@@ -18,7 +18,7 @@ class ChatRepository extends ServiceEntityRepository
     {
         $results = $this->createQueryBuilder('chat')
             ->select('IDENTITY(chat.user) as user_id', 'IDENTITY(chat.target) as target_id')
-            ->where('( chat.user = :user OR chat.target = :user )')
+            ->where('( chat.target = :user )')
             ->andWhere('chat.status = :status_new')
             ->setParameters([
                 'user'       => $user,
