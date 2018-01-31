@@ -1,13 +1,11 @@
-<div class="dialogBox" data-id="{{ target.id }}">
-    <div class="dialogHeader{% if isNew %}New{% endif %}">
+<div class="dialogBox" data-id="{{ target.id }}" data-refresh-url="{{ path('chat_refresh', { id: target.id }) }}" data-last-chat-id="">
+    <div class="dialogHeader">
         <span>{{ target.username }}</span>
         <span class="dialogClose"><a href="#">X</a></span>
     </div>
     {{ form_start(form) }}
-        <div class="dialogContent results">
-            {% include 'chat/search.html.twig' with results %}
-        </div>
-        <div class="dialogInput">
+        <div class="dialogContent results"></div>
+        <div class="dialogForm" data-href="{{ path('chat_post', { id: target.id }) }}">
             {{ form_widget(form.content) }}
         </div>
         {{ form_widget(form.user) }}

@@ -86,17 +86,47 @@ $(document).ready(function() {
     $(".site").on('click', '.chatLink', function(e) {
         e.preventDefault();
 
-        $('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]').show();
+        var dialogBox = $('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]');
 
-        if (!$('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]').length) {
+        if (!dialogBox.length) {
             $.get($(e.target).closest('.chatLink').data('href'), {}, function (data) {
                 $('.chatDock').append(data);
+
+                chatRefresh($(e.target).closest('.chatLink').data('id'));
             });
+        } else {
+            dialogBox.show();
         }
     });
+
+    function chatRefresh(id)
+    {
+        var dialogBox = $('.dialogBox[data-id="' + id + '"]');
+
+        $.get(dialogBox.data('refresh-url'), {
+            lastChatId : dialogBox.data('last-chat-id'),            
+        }, function(response) {
+            dialogBox.find('.results').append(response.html);
+            dialogBox.find('.dialogContent').scrollTop(dialogBox.find('.dialogContent')[0].scrollHeight);
+        });
+    }
 
     $(".site").on('click', '.dialogClose a', function(e) {
         e.preventDefault();
         $(e.target).closest('.dialogBox').remove();
+    });
+
+    $(".chatDock").keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+
+            var form = $(e.target).closest('.dialogForm');
+
+            $.post(form.data('href'), {
+                content : $(e.target).val()
+            }, function (data) {
+                chatRefresh($(e.target).closest('.dialogBox').data('id'));
+            });
+        }
     });
 });

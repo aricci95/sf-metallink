@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Chat;
 use App\Entity\User;
 use App\Repository\ChatRepository;
@@ -34,33 +35,65 @@ class ChatController extends SearchController
             return new JsonResponse(200);
         }
 
-        $results = array_reverse($chatRepository->getUsersChats($this->getUser(), $target));
-
-        $isNew = $results ? $results[0]->isNew() : false;
-
-        foreach ($results as $chat) {
-            $chat->setStatus(Chat::STATUS_READ);
-
-            $em->persist($chat);
-        }
-
-        $em->flush();
-
         return $this->render('chat/dialog.html.twig', [
-            'isNew'   => $isNew,
-            'results' => $results,
             'form'    => $form->createView(),
             'target'  => $target,
         ]);
     }
 
     /**
-     * @Route("/chat/search/{page}", name="chat_search", defaults={"page"=1})
+     * @Route("/chat/refresh/{id}", name="chat_refresh")
      */
-    public function search(Request $request, $page = 1)
+    public function refresh(Request $request, User $target, ChatRepository $chatRepository)
     {
-        $params = $request->query->all();
+        $lastChatId = $request->get('lastChatId', null);
 
-        return parent::doSearch(Chat::class, $params, $page);
+        $lastChat = $lastChatId ? $chatRepository->findOneById() : null;
+
+        $results = $chatRepository->getPreviousChats($this->getUser(), $target, $lastChat);
+
+        $isNew = $results ? $results[0]->isNew() : false;
+
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($results as $chat) {
+            $chat->setStatus(Chat::STATUS_READ);
+            $em->persist($chat);
+        }
+
+        $em->flush();
+
+        return new JsonResponse([
+            'html'   => $this->renderView('chat/search.html.twig', ['results' => $results]),
+            'is_new' => $isNew,
+        ]);
+    }
+
+    /**
+     * @Route("/chat/search/{id}/{page}", name="chat_search", defaults={"page"=1})
+     */
+    public function search(User $target, $page = 1)
+    {
+        return parent::doSearch(Chat::class, ['target_id' => $target->getId()], $page);
+    }
+
+    /**
+     * @Route("/chat/post/{id}", name="chat_post")
+     */
+    public function post(Request $request, User $target)
+    {
+        $content = $request->get('content');
+
+        $chat = new Chat();
+        $chat
+            ->setUser($this->getUser())
+            ->setTarget($target)
+            ->setContent($content);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($chat);
+        $em->flush();
+
+        return new JsonResponse(200);
     }
 }

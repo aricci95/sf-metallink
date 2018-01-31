@@ -29,6 +29,32 @@ class ChatRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getPreviousChats(User $user, User $target, Chat $lastChat = null): array
+    {
+        $qb = $this->createQueryBuilder('chat')
+            ->where('( chat.user = :user AND chat.target = :target OR chat.user = :target AND chat.target = :user )')
+            ->andWhere('chat.status != :status_deleted')
+            ->setParameters([
+                'user'           => $user,
+                'target'         => $target,
+                'status_deleted' => Chat::STATUS_DELETED,
+            ])
+            ->orderBy('chat.id', 'DESC')
+            ->setMaxResults(10);
+
+        if ($lastChat) {
+            $qb
+                ->andWhere('chat.id > :last_chat_id')
+                ->setParameter('last_chat_id', $lastChat->getId());
+        }
+
+        return array_reverse(
+            $qb
+                ->getQuery()
+                ->getResult()
+        );
+    }
+
     public function countByUser(User $user, $status = null)
     {
         $qb = $this->createQueryBuilder('chat')
