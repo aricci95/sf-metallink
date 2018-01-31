@@ -5,6 +5,58 @@ var nextPage = 1;
 
 window.searchable = false;
 
+function chat(id)
+{
+    if (!$('.dialogBox[data-id="' + id + '"]').length) {
+        $.get($('.chatDock').data('dialog-url'), {id: id}, function (data) {
+            $('.chatDock').append(data);
+
+            $('.dialogBox[data-id="' + id + '"]').find('.dialogInput').focus();
+
+            chatRefresh(id);
+        });
+    }
+}
+
+function chatRefresh(id)
+{
+    var dialogBox = $('.dialogBox[data-id="' + id + '"]');
+
+    $.get(dialogBox.data('refresh-url'), {
+        lastChatId : dialogBox.data('last-chat-id'),            
+    }, function(response) {
+        if (response.html) {
+            dialogBox.find('.results').append(response.html);
+            dialogBox.find('.dialogContent').scrollTop(dialogBox.find('.dialogContent')[0].scrollHeight);
+
+            if (response.isNew) {
+                dialogBox.find('.dialogHeader').addClass('dialogHeaderNew');
+            }
+
+            dialogBox.data('last-chat-id', response.lastChatId)
+        }
+    });
+}
+
+function chatRefreshAll()
+{
+    console.log('refresh all');
+
+    $.get($('.chatDock').data('has-new-url'), {}, function(response) {
+        $.each(response.userIds, function(index, id) {
+            if ($('.dialogBox[data-id="' + id + '"]').length) {
+                chatRefresh(id);
+            } else {
+                chat(id);
+            }
+        });    
+    });
+}
+
+chatRefreshAll();
+
+setInterval(chatRefreshAll, 3000);
+
 window.search = function search(params) {
     if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage) {
         $('.results').data('processing', true);
@@ -86,30 +138,8 @@ $(document).ready(function() {
     $(".site").on('click', '.chatLink', function(e) {
         e.preventDefault();
 
-        var dialogBox = $('.dialogBox[data-id="' + $(e.target).closest('.chatLink').data('id') + '"]');
-
-        if (!dialogBox.length) {
-            $.get($(e.target).closest('.chatLink').data('href'), {}, function (data) {
-                $('.chatDock').append(data);
-
-                chatRefresh($(e.target).closest('.chatLink').data('id'));
-            });
-        } else {
-            dialogBox.show();
-        }
+        chat($(e.target).closest('.chatLink').data('id'));
     });
-
-    function chatRefresh(id)
-    {
-        var dialogBox = $('.dialogBox[data-id="' + id + '"]');
-
-        $.get(dialogBox.data('refresh-url'), {
-            lastChatId : dialogBox.data('last-chat-id'),            
-        }, function(response) {
-            dialogBox.find('.results').append(response.html);
-            dialogBox.find('.dialogContent').scrollTop(dialogBox.find('.dialogContent')[0].scrollHeight);
-        });
-    }
 
     $(".site").on('click', '.dialogClose a', function(e) {
         e.preventDefault();
@@ -125,6 +155,7 @@ $(document).ready(function() {
             $.post(form.data('href'), {
                 content : $(e.target).val()
             }, function (data) {
+                $(e.target).val('');
                 chatRefresh($(e.target).closest('.dialogBox').data('id'));
             });
         }

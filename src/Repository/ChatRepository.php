@@ -14,6 +14,30 @@ class ChatRepository extends ServiceEntityRepository
         parent::__construct($registry, Chat::class);
     }
 
+    public function hasNewChats(User $user): array
+    {
+        $results = $this->createQueryBuilder('chat')
+            ->select('IDENTITY(chat.user) as user_id', 'IDENTITY(chat.target) as target_id')
+            ->where('( chat.user = :user OR chat.target = :user )')
+            ->andWhere('chat.status = :status_new')
+            ->setParameters([
+                'user'       => $user,
+                'status_new' => Chat::STATUS_NEW,
+            ])
+            ->getQuery()
+            ->getScalarResult();
+
+        $ids = [];
+        foreach ($results as $result) {
+            $ids[$result['user_id']]   = (int) $result['user_id'];
+            $ids[$result['target_id']] = (int) $result['target_id'];
+        }
+
+        unset($ids[$user->getId()]);
+
+        return array_values($ids);
+    }
+
     public function getUsersChats(User $user, User $target): array
     {
         return $this->createQueryBuilder('chat')

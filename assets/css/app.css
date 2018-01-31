@@ -551,7 +551,6 @@ div.debug {
     padding: 5px;
 }
 
-
 .dialogHeaderNew {
     background-color: rgb(162, 204, 57);
     text-align: left;
@@ -561,7 +560,7 @@ div.debug {
 
 .dialogInput {
     padding: 1px;
-    width:260px;
+    width:255px;
     background-color: rgba(36, 36, 36, 0.1);
 }
 

@@ -8,15 +8,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Chat;
 use App\Entity\User;
 use App\Repository\ChatRepository;
+use App\Repository\UserRepository;
 use App\Form\ChatType;
 
 class ChatController extends SearchController
 {
     /**
-     * @Route("/chat/dialog/{id}", name="chat_dialog")
+     * @Route("/chat/dialog", name="chat_dialog")
      */
-    public function dialog(Request $request, User $target, ChatRepository $chatRepository)
+    public function dialog(Request $request, ChatRepository $chatRepository, UserRepository $userRepository)
     {
+        $target = $userRepository->findOneById($request->get('id'));
+
         $form = $this->createForm(ChatType::class, new Chat(), [
             'user'   => $this->getUser(),
             'target' => $target,
@@ -48,24 +51,42 @@ class ChatController extends SearchController
     {
         $lastChatId = $request->get('lastChatId', null);
 
-        $lastChat = $lastChatId ? $chatRepository->findOneById() : null;
+        $lastChat = $lastChatId ? $chatRepository->findOneById($lastChatId) : null;
 
         $results = $chatRepository->getPreviousChats($this->getUser(), $target, $lastChat);
 
-        $isNew = $results ? $results[0]->isNew() : false;
+        $isNew = false;
+        foreach ($results as $result) {
+            if ($result->getTarget() == $this->getUser() && $result->isNew()) {
+                $isNew = true;
+            }
+        }
 
         $em = $this->getDoctrine()->getManager();
 
         foreach ($results as $chat) {
-            $chat->setStatus(Chat::STATUS_READ);
-            $em->persist($chat);
+            if ($this->getUser() == $chat->getTarget()) {
+                $chat->setStatus(Chat::STATUS_READ);
+                $em->persist($chat);
+            }
         }
 
         $em->flush();
 
         return new JsonResponse([
-            'html'   => $this->renderView('chat/search.html.twig', ['results' => $results]),
-            'is_new' => $isNew,
+            'html'       => $results ? $this->renderView('chat/search.html.twig', ['results' => $results]) : null,
+            'isNew'      => $isNew,
+            'lastChatId' => $results ? array_reverse($results)[0]->getId() : null,
+        ]);
+    }
+
+    /**
+     * @Route("/chat/has-new", name="chat_has_new")
+     */
+    public function hasNewChats(ChatRepository $chatRepository)
+    {
+        return new JsonResponse([
+            'userIds' => $chatRepository->hasNewChats($this->getUser()),
         ]);
     }
 
