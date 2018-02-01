@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class ChatRepository extends ServiceEntityRepository
+class ChatRepository extends ServiceEntityRepository implements SearchRepositoryInterface
 {
     public function __construct(RegistryInterface $registry)
     {

@@ -16,7 +16,7 @@ class Mail extends Message
      * @ORM\ManyToOne(targetEntity="User", inversedBy="mailsSent")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    protected $user;
 
     /**
      * @var User
@@ -24,7 +24,7 @@ class Mail extends Message
      * @ORM\ManyToOne(targetEntity="User", inversedBy="mailsReceived")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
-    private $target;
+    protected $target;
 
     /**
      * Gets the value of user.

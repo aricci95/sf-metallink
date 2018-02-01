@@ -7,7 +7,7 @@ use App\Entity\Link;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository implements SearchRepositoryInterface
 {
     public function __construct(RegistryInterface $registry)
     {

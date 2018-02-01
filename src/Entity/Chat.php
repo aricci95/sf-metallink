@@ -16,7 +16,7 @@ class Chat extends Message
      * @ORM\ManyToOne(targetEntity="User", inversedBy="chatsSent")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    protected $user;
 
     /**
      * @var User
@@ -24,7 +24,7 @@ class Chat extends Message
      * @ORM\ManyToOne(targetEntity="User", inversedBy="chatsReceived")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
-    private $target;
+    protected $target;
 
     /**
      * Gets the value of user.

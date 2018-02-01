@@ -23,7 +23,7 @@
             <div class="shadow"></div>
             <div style="padding-left:10px;padding-right:10px;">
                 <div style="color:rgb(35, 31, 32);font-size: 35px;letter-spacing:-2px;font-weight: bold;width:100%;">
-                    {{ user.username|capitalize }} {{ user.status }}
+                    {{ user.username|capitalize }} <img src="/images/icone/{{ user.statusPicture }}" />
                     {% if app.user == user %}
                         <span style="float:right;">
                             <a href="{{ path('fos_user_profile_edit') }}" title="Editer"><img src="/images/icone/edit.png" /></a>
@@ -35,7 +35,7 @@
                     <b>{{ user.age }} ans</b>
                 {% endif %}
                 <br/> 
-                Dernière connexion {{ user.lastConnexionDate }}
+                Dernière connexion {{ user.lastConnexionDelay }}
                 <br/>
                 <br/>
                 <table class="tableProfil" width="250">

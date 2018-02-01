@@ -1,7 +1,7 @@
 <div class="divElement">
     <a href="{{ path('user_show', {'id' : user.id}) }}" >
     <div class="divPhoto" style="background:url('{{ user.defaultPicture.path | imagine_filter('thumbnail') }}');background-position: top center;background-size:cover;">
-        <img class="pictoStatus" src="/images/icone/{% if user.status %}online.gif{% else %}offline.png{% endif %}" />
+        <img class="pictoStatus" src="/images/icone/{{ user.statusPicture }}" />
     </div>
     <div class="divInfo">
         <span class="userFont" style="color:{% if user.gender == 1 %}#3333CC{% else %}#CC0000{% endif %}" >

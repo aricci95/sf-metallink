@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class LinkRepository extends ServiceEntityRepository
+class LinkRepository extends ServiceEntityRepository implements SearchRepositoryInterface
 {
     const CACHE_KEY = 'link_user_';
 

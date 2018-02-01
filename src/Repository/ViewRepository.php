@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class ViewRepository extends ServiceEntityRepository
+class ViewRepository extends ServiceEntityRepository implements SearchRepositoryInterface
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -24,9 +24,11 @@ class ViewRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function search(array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
+    public function search(User $user, array $params = [], array $blacklist = [], $page = 1, $pageSize = 50)
     {
         $qb = $this->createQueryBuilder('view');
+
+        $blacklist[] = $user;
 
         if ($blacklist) {
             $qb
@@ -41,9 +43,11 @@ class ViewRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function searchCount(array $params = [], array $blacklist = [])
+    public function searchCount(User $user, array $params = [], array $blacklist = [])
     {
         $qb = $this->createQueryBuilder('view');
+
+        $blacklist[] = $user;
 
         if ($blacklist) {
             $qb

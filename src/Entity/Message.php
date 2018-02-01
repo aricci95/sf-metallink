@@ -16,28 +16,28 @@ class Message
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var string
      *
      * @ORM\Column(name="content", type="text", nullable=false)
      */
-    private $content;
+    protected $content;
 
     /**
      * @var int
      *
      * @ORM\Column(name="status", type="smallint", nullable=false)
      */
-    private $status;
+    protected $status;
 
     public function __construct()
     {

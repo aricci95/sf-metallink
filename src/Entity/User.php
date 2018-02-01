@@ -19,6 +19,11 @@ class User extends BaseUser
     const STATUS_ONLINE  = 1;
     const STATUS_OFFLINE = 0;
 
+    const PICTURE_ONLINE  = 'online.gif';
+    const PICTURE_OFFLINE = 'offline.png';
+
+    const ONLINE_TIME_THRESHOLD = 30;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -145,20 +150,15 @@ class User extends BaseUser
      */
     private $chatsReceived;
 
-    /**
-     * @var int
-     */
-    private $status = self::STATUS_OFFLINE;
-
     public function __construct()
     {
-        $this->linksSent     = new ArrayCollection();
-        $this->linksReceived = new ArrayCollection();
-        $this->mailsSent     = new ArrayCollection();
-        $this->mailsReceived = new ArrayCollection();
-        $this->chatsSent     = new ArrayCollection();
-        $this->chatsReceived = new ArrayCollection();
-        $this->pictures      = new ArrayCollection();
+        $this->linksSent         = new ArrayCollection();
+        $this->linksReceived     = new ArrayCollection();
+        $this->mailsSent         = new ArrayCollection();
+        $this->mailsReceived     = new ArrayCollection();
+        $this->chatsSent         = new ArrayCollection();
+        $this->chatsReceived     = new ArrayCollection();
+        $this->pictures          = new ArrayCollection();
     }
 
     public function getDefaultPicture()
@@ -428,21 +428,18 @@ class User extends BaseUser
      */
     public function getStatus()
     {
-        return $this->status;
+        if (!$this->lastConnexionDate) {
+            return false;
+        }
+
+        $lastConnexionInterval = (new \DateTime())->diff($this->lastConnexionDate);
+
+        return (!$lastConnexionInterval->h && $lastConnexionInterval->i <= self::ONLINE_TIME_THRESHOLD);
     }
 
-    /**
-     * Sets the value of status.
-     *
-     * @param int $status the status
-     *
-     * @return self
-     */
-    public function setStatus($status)
+    public function getStatusPicture()
     {
-        $this->status = $status;
-
-        return $this;
+        return $this->getStatus() ? self::PICTURE_ONLINE : self::PICTURE_OFFLINE;
     }
 
     /**
@@ -477,6 +474,11 @@ class User extends BaseUser
     public function getLastConnexionDate()
     {
         return $this->lastConnexionDate;
+    }
+
+    public function getLastConnexionDelay()
+    {
+        return "Il y a 10 jours";
     }
 
     /**

@@ -116,6 +116,17 @@ a:link {color: #808080;text-decoration: none ;}
     display:none;
 }
 
+.heading {
+    white-space:nowrap;
+    overflow: hidden;
+    font-size: 18px;
+    padding: 20px;
+    padding-top: 13px;
+    height: 16px;
+    background-color: rgb(29, 39, 35);
+    color: rgb(162, 204, 57);
+}
+
 .thMessageBoxMenu {
     font-size:20px;
     text-align:center;
