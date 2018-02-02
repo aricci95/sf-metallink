@@ -31,7 +31,6 @@ class UserController extends SearchController
      */
     public function show(User $user, IndicatorService $indicatorService, ViewRepository $viewRepository)
     {
-        var_dump($this->getUser()->getStatus());
         if ($this->getUser() && $user != $this->getUser()) {
             $view = $viewRepository->findOneBy([
                 'user'   => $this->getUser(),

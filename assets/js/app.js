@@ -57,8 +57,8 @@ chatRefreshAll();
 
 setInterval(chatRefreshAll, 3000);
 
-window.search = function search(params) {
-    if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage) {
+window.search = function search(params, forceSearch = false) {
+    if (forceSearch || ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage)) {
         $('.results').data('processing', true);
 
         $.get('search/' + nextPage, params, function(response) {

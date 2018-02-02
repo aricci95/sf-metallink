@@ -2,12 +2,12 @@ window.searchable = true;
 
 $(document).ready(function() {
     $("#search_form").on('change keypress', 'input, select', function(e) {
-        window.search(getParams());
+        window.search(getParams(), true);
     });
 
     $("#search_form").on('click', '#submit_button', function(e) {
         e.preventDefault();
-        window.search(getParams());
+        window.search(getParams(), true);
     });
 });
 
