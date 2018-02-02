@@ -21,7 +21,6 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('birthdate', BirthdayType::class)
-            ->add('profilePicture', FileType::class)
             ->add('shortDescription')
             ->add('description')
             ->add('height')

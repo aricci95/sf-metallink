@@ -68,5 +68,21 @@
             {{ user.description}}
             <div style="height:25px"></div>
         {% endif %}
+        {% if user.bands|length %}
+            <div class="title noMargin">PASSIONS</div>
+            <div class="shadow noMargin"></div>
+            <div style="display: inline-block;">
+                <div style="float:left;background-image:url('/images/260882b-emp.jpg');width:350px;height:500px;">
+                    <div class="vesteAPatchs">
+                        {% for band in user.bands %}
+                            <span>band.name</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div style="float:left;width:400px;">
+                </div>
+            </div>
+        {% endif %}
+        </div>
     </div>
 {% endblock %}

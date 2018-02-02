@@ -150,6 +150,11 @@ class User extends BaseUser
      */
     private $chatsReceived;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Band", mappedBy="users")
+     */
+    private $bands;
+
     public function __construct()
     {
         $this->linksSent         = new ArrayCollection();
@@ -159,6 +164,7 @@ class User extends BaseUser
         $this->chatsSent         = new ArrayCollection();
         $this->chatsReceived     = new ArrayCollection();
         $this->pictures          = new ArrayCollection();
+        $this->bands             = new ArrayCollection();
     }
 
     public function getDefaultPicture()
@@ -443,30 +449,6 @@ class User extends BaseUser
     }
 
     /**
-     * Gets the value of profilePictureName.
-     *
-     * @return string
-     */
-    public function getProfilePictureName()
-    {
-        return $this->profilePictureName;
-    }
-
-    /**
-     * Sets the value of profilePictureName.
-     *
-     * @param string $profilePictureName the profile picture name
-     *
-     * @return self
-     */
-    public function setProfilePictureName($profilePictureName)
-    {
-        $this->profilePictureName = $profilePictureName;
-
-        return $this;
-    }
-
-    /**
      * Gets the value of lastConnexionDate.
      *
      * @return \DateTime
@@ -570,5 +552,35 @@ class User extends BaseUser
         return $link
             ->setUser($this)
             ->setTarget($target);
+    }
+
+    /**
+     * @param Band $band
+     */
+    public function addBand(Band $band)
+    {
+        if (!$this->bands->contains($band)) {
+            $this->bands->add($band);
+        }
+    }
+
+    /**
+     * @param Band $band
+     */
+    public function removeBand(Band $band)
+    {
+        if ($this->bands->contains($band)) {
+            $this->bands->removeElement($band);
+        }
+    }
+
+    /**
+     * Gets the value of bands.
+     *
+     * @return mixed
+     */
+    public function getBands()
+    {
+        return $this->bands;
     }
 }

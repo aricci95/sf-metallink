@@ -57,6 +57,12 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Controller\ProfileController:
+        arguments:
+            - "@event_dispatcher"
+            - "@fos_user.profile.form.factory"
+            - "@fos_user.user_manager"
+
     login_listener:
         class: '%interactive_login_listener.class%'
         arguments: 

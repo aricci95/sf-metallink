@@ -12,6 +12,10 @@ profile_edited:
         route: fos_user_profile_edit
         permanent: true
 
+profile_edit:
+    path: /profile/edit
+    controller: App\Controller\ProfileController:editAction
+
 user_authentified:
     path: /
     defaults:
