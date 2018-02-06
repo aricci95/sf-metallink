@@ -53,7 +53,7 @@ function chatRefreshAll()
     });
 }
 
-setInterval(chatRefreshAll, 10000);
+// setInterval(chatRefreshAll, 10000); @TODO : ENABLE THIS FOR CHAT
 
 window.search = function search(params, forceSearch = false) {
     if (forceSearch || ($(window).scrollTop() + $(window).height() >= ($(document).height() - 900) && !$('.results').data('processing') && nextPage)) {

@@ -151,7 +151,7 @@ class User extends BaseUser
     private $chatsReceived;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Band", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="Band", mappedBy="users",cascade={"persist"})
      */
     private $bands;
 

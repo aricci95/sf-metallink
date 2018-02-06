@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @ORM\Entity()")
  * @ORM\Table(name="band")
@@ -25,7 +27,7 @@ class Band
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="bands", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="bands")
      * @ORM\JoinTable(
      *     name="rel_band_user",
      *     joinColumns={@ORM\JoinColumn(name="band_id", referencedColumnName="id")},
@@ -33,6 +35,11 @@ class Band
      * )
      */
     private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * Gets the value of id.

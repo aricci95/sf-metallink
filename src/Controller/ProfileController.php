@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use FOS\UserBundle\Form\Factory\FormFactory;
+use App\Entity\Band;
 
 class ProfileController extends BaseController
 {
@@ -54,21 +55,6 @@ class ProfileController extends BaseController
         $this->eventDispatcher = $eventDispatcher;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
-    }
-
-    /**
-     * Show the user.
-     */
-    public function showAction()
-    {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $this->render('@FOSUser/Profile/show.html.twig', array(
-            'user' => $user,
-        ));
     }
 
     /**
@@ -102,6 +88,21 @@ class ProfileController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
+
+            var_dump($request->request->get('bands', []));
+            die;
+
+            foreach ($request->request->get('bands', []) as $bandName) {
+                $band = $this->getDoctrine()->getManager()->getRepository(Band::class)->findOneByName($bandName);
+                
+                if (!$band) {
+                    $band = new Band();
+                    $band->setName($bandName);
+                }
+
+                $user->addBand($band);
+                $band->addUser($user);
+            }
 
             $this->userManager->updateUser($user);
 
