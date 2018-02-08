@@ -7,6 +7,6 @@ $(document).ready(function() {
         var tasteType = tasteList.attr('data-taste-type');
 
         taste.closest('.addTaste').removeClass('addTaste');
-        tasteList.append('<li><input type="text" class="addTaste taste" name="' + tasteType + '[]" maxlength="30" /></li>');
+        tasteList.append('<li><input class="addTaste taste" name="' + tasteType + 's[]" maxlength="30" value=""/></li>');
     });
 });

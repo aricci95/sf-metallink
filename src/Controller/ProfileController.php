@@ -51,7 +51,7 @@ class ProfileController extends BaseController
      * @param UserManagerInterface     $userManager
      */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
-    {
+    {      
         $this->eventDispatcher = $eventDispatcher;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
@@ -83,14 +83,12 @@ class ProfileController extends BaseController
         $form = $this->formFactory->createForm();
         $form->setData($user);
 
+            
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
-
-            var_dump($request->request->get('bands', []));
-            die;
 
             foreach ($request->request->get('bands', []) as $bandName) {
                 $band = $this->getDoctrine()->getManager()->getRepository(Band::class)->findOneByName($bandName);
